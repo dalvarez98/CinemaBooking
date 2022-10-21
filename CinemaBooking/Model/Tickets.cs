@@ -1,12 +1,15 @@
-﻿namespace CinemaBooking.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CinemaBooking.Model
 {
     public class Tickets
     {
+        [Key]
         public int TicketNum { get; set; }
 
-        public DateTime ShowTime { get; set; }
+        public string ShowTime { get; set; }
 
-        public DateOnly ShowDate { get; set; }
+        public string ShowDate { get; set; }
 
         public float Price { get; set; }
 

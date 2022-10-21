@@ -1,5 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+<style>
+    #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;
+    }
+</style>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +19,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3" style="padding-top: 5px; padding-bottom: 5px; min-height: 32px">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">DAV Theaters</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -37,7 +45,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-dark">
+    <footer class="border-top footer text-muted bg-dark" id="footer">
         <div class="container">
             &copy; 2022 - DAV Theaters - <a asp-area="" asp-page="/Privacy">Privacy Policy</a>
         </div>
