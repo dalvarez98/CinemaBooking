@@ -16,6 +16,8 @@ namespace CinemaBooking.Pages.SeatSelection
         public string selectedDate { get; set; }
         [BindProperty]
         public string selectedMovie { get; set; }
+        [BindProperty]
+        public string selectedTheaterOptions { get; set; }
         private const int dateRange = 30;
         private ApplicationDbContext db { get; }
         public List<SelectListItem> locationList = new List<SelectListItem>();
@@ -27,6 +29,7 @@ namespace CinemaBooking.Pages.SeatSelection
         {
             this.db = _db;
         }
+        //Grabs all available locations of theaters from database
         public void locations()
         {
             try
@@ -51,9 +54,10 @@ namespace CinemaBooking.Pages.SeatSelection
             }
             catch (SqlException)
             {
-
+                Console.WriteLine("Error");
             }
         }
+        //Stores all dates 30 days from today
         public void dates()
         {
             int i;
@@ -73,6 +77,7 @@ namespace CinemaBooking.Pages.SeatSelection
             locations();
             dates();
             selectedDate = DateTime.Now.ToShortDateString();
+            selectedTheaterOptions = "Reserved Seating";
             this.Cinema = new SelectList(locationList, "Value", "Value");
             this.Dates = new SelectList(dateList);
             this.Movie = new SelectList(this.db.Movie, "MovieID", "MovieTitle");

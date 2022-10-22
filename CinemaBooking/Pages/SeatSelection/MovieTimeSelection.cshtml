@@ -4,7 +4,7 @@
 	<style>
 				.Showtimes {
 					position: fixed;
-					top: 10%;
+					top: 5.5%;
 					bottom: 0;
 					left: 0;
 					right: 0;
@@ -87,8 +87,9 @@
 					position: absolute;
 					top: 50%;
 					transform: translateY(-50%);
-					color: rgba(255,255,255,.5);
+					color: white;
 					font-size: 12px;
+					font-weight: bold;
 					text-transform: uppercase;
 				}
 				.Background-Container {
@@ -98,8 +99,8 @@
 					transition-property: opacity;
 					transition-delay: .15s;
 					transition-duration: .5s;
-					filter: blur(8px);
-					-webkit-filter: blur(8px);
+					filter: blur(1px);
+					-webkit-filter: blur(1px);
 					position: absolute;
 					left: 0;
 					top: 0;
@@ -115,10 +116,10 @@
 					position: absolute;
 					top: 0;
 					left: 0;
-					width: 100%;
 					height: 100%;
+					width: 100%;
 					background-repeat: no-repeat;
-					background-position: 50%;
+					background-position: center;
 					background-size: cover;
 				}
 				.icon {
@@ -126,7 +127,7 @@
 					color: white;
 				}
 	</style>
-	<!--<div class="Showtimes">-->
+	<div class="Showtimes">
 	<form method="post">
 	<div class="showtimes-filters">
 				<div class="u-container">
@@ -167,14 +168,27 @@
 									onchange="this.form.submit();"></select>
 							</div>
 						</div>
+						<div class="Dropdown-Wrapper">
+							<div class="Dropdown-Action">
+								<i class="bi bi-pin-angle icon"></i>
+								<div class="Title" id="Theater Options" aria-hidden="true">
+									@Model.selectedTheaterOptions
+								</div>
+								<i class="bi bi-arrow-down-circle icon"></i>
+								<select class="Dropdown-Select" asp-for="selectedTheaterOptions" onchange="this.form.submit();">
+									<option>Reserved Seating</option>
+									<option>Closed Caption</option>
+								</select>
+							</div>
+						</div>
 					</div>
 				</div>
 	</div>
 	</form>
 	<div class="Background-Container">
 				<div class="Background-Image">
-					<img img class="image" src="~/TheaterRoom.jpg" />
+					<img img class="image" src="~/seatRoom.jpg" />
 				</div>
 	</div>
-	<!--</div>-->
+	</div>
 }
