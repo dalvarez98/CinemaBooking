@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CinemaBooking.Pages
 {
-    [BindProperties]
     public class CustomerModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        [BindProperty]
         public Customer Customer { get; set; }
 
         public CustomerModel(ApplicationDbContext db)
         {
             _db = db;
         }
-        public async Task<IActionResult> OnPost(Customer cust)
+        public async Task<IActionResult> OnPost()
         {
-            await _db.Customer.AddAsync(cust);
+            await _db.Customer.AddAsync(Customer);
             await _db.SaveChangesAsync();
             return RedirectToPage("Index");
         }
