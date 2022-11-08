@@ -23,7 +23,7 @@ namespace CinemaBooking.Model
         public string City { get; set; }
 
         [Required(ErrorMessage = "Please provide a State", AllowEmptyStrings = false)]
-        public char State { get; set; }
+        public string State { get; set; }
 
         [Required(ErrorMessage = "Please provide a Zip Code", AllowEmptyStrings = false)]
         public string ZipCode { get; set; }
@@ -41,6 +41,6 @@ namespace CinemaBooking.Model
 
         [Required(ErrorMessage = "Please provide a Password", AllowEmptyStrings = false)]
         [StringLength(8, MinimumLength = 8, ErrorMessage = "Password must be 8 char long.")]
-        public char Password { get; set; }
+        public string Password { get; set; }
     }
 }
