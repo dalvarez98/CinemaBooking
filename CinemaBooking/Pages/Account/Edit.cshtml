@@ -10,72 +10,105 @@
     <div class="border p-3 mt-6">
         <div class="row pb-2">
             <h2 style="color:white">
-                Create an Account
+                Account
             </h2>
             <hr />
         </div>
         <div class="mb-3" style="color:white">
             First Name:
+            <p>Customer.FirstN</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.FirstN" style="color:red"/>
             <span asp-validation-for="Customer.FirstN" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Last Name:
+            <p>@Model.Customer.LastN</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.LastN" style="color:red"/>
             <span asp-validation-for="Customer.LastN" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Date of Birth:
+
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.DOB" style="color:red" />
             <span asp-validation-for="Customer.DOB" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Street:
+            <p>@Model.Customer.Address</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.Address" style="color:red"/>
             <span asp-validation-for="Customer.Address" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             City:
+            <p>@Model.Customer.City</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.City" style="color:red"/>
             <span asp-validation-for="Customer.City" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             State:
+            <p>@Model.Customer.State</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.State" style="color:red"/>
             <span asp-validation-for="Customer.State" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Zipcode:
+            <p>@Model.Customer.ZipCode</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.ZipCode" style="color:red"/>
             <span asp-validation-for="Customer.ZipCode" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Email:
+            <p>@Model.Customer.Email</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.Email" style="color:red"/>
             <span asp-validation-for="Customer.Email" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Phone Number:
+            <p>@Model.Customer.PhoneNum</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.PhoneNum" style="color:red"/>
             <span asp-validation-for="Customer.PhoneNum" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Username:
+            <p>@Model.Customer.Username</p>
+            <br />
+            <label>Edit</label>
             <br />
             <input asp-for="Customer.Username" style="color:red"/>
             <span asp-validation-for="Customer.Username" class="text-danger"/>
         </div>
         <div class="mb-3" style="color:white">
             Password:
+            <p>@Model.Customer.Password</p>
+            <br />
+            <label>Edit:</label>
             <br />
             <input asp-for="Customer.Password" style="color:red"/>
             <span asp-validation-for="Customer.Password" class="text-danger"/>

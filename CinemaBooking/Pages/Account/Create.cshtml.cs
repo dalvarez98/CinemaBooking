@@ -21,7 +21,7 @@ namespace CinemaBooking.Pages
             {
                 await _db.Customer.AddAsync(Customer);
                 await _db.SaveChangesAsync();
-                return RedirectToPage("Index");
+                return RedirectToPage("Edit", Customer.CustID);
             }
             else return Page();
         }

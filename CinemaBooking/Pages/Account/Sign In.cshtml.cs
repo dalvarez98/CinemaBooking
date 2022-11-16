@@ -9,6 +9,7 @@ namespace CinemaBooking.Pages
     public class Customer_SignIn_Model : PageModel
     {
         private readonly ApplicationDbContext _db;
+        [BindProperty]
         public Customer Customer { get; set; }
 
         public Customer_SignIn_Model(ApplicationDbContext db)
@@ -18,22 +19,11 @@ namespace CinemaBooking.Pages
 
         public void OnGet(String user, String pass)
         {
-            Customer = _db.Customer.Where(u => u.Username == user && u.Password == pass).FirstOrDefault();
-            if(Customer == null)
-            {
-                Console.WriteLine("Could Not Find Account");
-            }
+            Customer = _db.Customer.Where(u => u.Username.Equals(user) && u.Password.Equals(pass)).FirstOrDefault();
         }
-        /*
         public async Task<IActionResult> OnPost()
         {
-            if (ModelState.IsValid)
-            {
-                await _db.Customer.AddAsync(Customer);
-                await _db.SaveChangesAsync();
-                return RedirectToPage("Index");
-            }
-            else return Page();
-        }*/
+            return RedirectToPage("Edit", Customer.CustID);
+        }
     }
 }

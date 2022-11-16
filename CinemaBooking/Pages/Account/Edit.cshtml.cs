@@ -16,14 +16,15 @@ namespace CinemaBooking.Pages
             _db = db;
         }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
+            Customer = _db.Customer.Find(id);
         }
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                await _db.Customer.AddAsync(Customer);
+                _db.Customer.Update(Customer);
                 await _db.SaveChangesAsync();
                 return RedirectToPage("Index");
             }

@@ -13,12 +13,12 @@
         <div class="mb-3" style="color:white">
             Username:
             <br />
-            <a asp-page="Sign In" asp-route-user="Customer.Username" style="color:red" />
+            <input asp-for="Customer.Username" style="color:red" />
         </div>
         <div class="mb-3" style="color:white">
             Password:
             <br />
-            <a asp-page="Sign in" asp-route-pass="Customer.Password" style="color:red" />
+            <input asp-for="Customer.Password" style="color:red" />
         </div>
         <div class="container">
             <button type="submit" class="btn btn-primary" style="background-color:red">
