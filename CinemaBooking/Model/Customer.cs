@@ -14,7 +14,7 @@ namespace CinemaBooking.Model
         public string LastN { get; set; }
 
         [Required(ErrorMessage = "Please provide a DOB", AllowEmptyStrings = false)]
-        public string DOB { get; set; }
+        public DateTime DOB { get; set; }
 
         [Required(ErrorMessage = "Please provide a Address", AllowEmptyStrings = false)]
         public string Address { get; set; }
