@@ -17,13 +17,13 @@ namespace CinemaBooking.Pages
             _db = db;
         }
 
-        public void OnGet(String user, String pass)
+        public void OnGet()
+        {
+        }
+        public async Task<IActionResult> OnPost(String user, String pass)
         {
             Customer = _db.Customer.Where(u => u.Username.Equals(user) && u.Password.Equals(pass)).FirstOrDefault();
-        }
-        public async Task<IActionResult> OnPost()
-        {
-            return RedirectToPage("Edit", Customer.CustID);
+            return RedirectToPage("Edit");
         }
     }
 }

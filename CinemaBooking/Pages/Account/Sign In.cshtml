@@ -7,18 +7,18 @@
     }
 </style>
 
-<form method="post">
+<form asp-page-handler="/Account/Edit" asp-route-id="@Model.Customer.CustID" method="post">
     <div class="border p-4">
         <h3 style="color:white">Sign In</h3>
         <div class="mb-3" style="color:white">
             Username:
             <br />
-            <input asp-for="Customer.Username" style="color:red" />
+            <input type="text" name="user" style="color:red" />
         </div>
         <div class="mb-3" style="color:white">
             Password:
             <br />
-            <input asp-for="Customer.Password" style="color:red" />
+            <input type="text" name="pass" style="color:red" />
         </div>
         <div class="container">
             <button type="submit" class="btn btn-primary" style="background-color:red">

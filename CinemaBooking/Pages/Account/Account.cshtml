@@ -1,0 +1,90 @@
+﻿@page
+@model CinemaBooking.Pages.CustomerModel
+
+<style>
+    body{
+        background-color: black;
+    }
+</style>
+<form method="post">
+    <div class="border p-3 mt-6">
+        <div class="row pb-2">
+            <h2 style="color:white">
+                Account
+            </h2>
+            <hr />
+        </div>
+        <div class="mb-3" style="color:white">
+            First Name:
+            <br />
+            @Model.Customer.FirstN.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Last Name:
+            <br />
+            @Model.Customer.LastN.ToString()
+            <br />
+            <br />
+        <div class="mb-3" style="color:white">
+            Date of Birth:
+            <br />
+            @Model.Customer.DOB.Date.ToString("dd MMM yyyy")
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Street:
+            <br />
+            @Model.Customer.Address.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            City:
+            <br />
+            @Model.Customer.City.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            State:
+            <br />
+            @Model.Customer.State.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            ZipCode:
+            <br />
+            @Model.Customer.ZipCode.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Email:
+            <br />
+            @Model.Customer.Email.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Phone Number:
+            <br />
+            @Model.Customer.PhoneNum.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Username:
+            <br />
+            @Model.Customer.Username.ToString()
+            <br />
+        </div>
+        <div class="mb-3" style="color:white">
+            Password:
+            <br />
+            @Model.Customer.Password.ToString()
+            <br />
+        </div>
+    </div>
+</form>
+<form method="post">
+    <div class="container pb-2">
+        <a asp-page="/Account/Edit" asp-route-id="@Model.Customer.CustID" class="btn btn-primary" style="background-color:red">Edit</a>
+        <a asp-page="/Account/Delete" asp-route-id="@Model.Customer.CustID" class="btn btn-primary" style="background-color:red">Delete</a>
+    </div>
+</form>
