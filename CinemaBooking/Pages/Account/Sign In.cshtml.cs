@@ -23,7 +23,7 @@ namespace CinemaBooking.Pages
         public async Task<IActionResult> OnPost(String user, String pass)
         {
             Customer = _db.Customer.Where(u => u.Username.Equals(user) && u.Password.Equals(pass)).FirstOrDefault();
-            return RedirectToPage("Edit");
+            return RedirectToPage("Account",Customer.CustID);
         }
     }
 }
