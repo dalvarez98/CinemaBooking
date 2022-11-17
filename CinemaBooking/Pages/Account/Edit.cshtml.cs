@@ -15,10 +15,11 @@ namespace CinemaBooking.Pages
         {
             _db = db;
         }
-
+        
         public void OnGet(int id)
         {
-            Customer = _db.Customer.Find(id);
+            Customer = _db.Customer.Find(1);
+
         }
         public async Task<IActionResult> OnPost()
         {
