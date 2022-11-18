@@ -2,6 +2,7 @@ using CinemaBooking.Data;
 using CinemaBooking.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Text;
 
 namespace CinemaBooking.Pages
 {
@@ -15,19 +16,20 @@ namespace CinemaBooking.Pages
         {
             _db = db;
         }
-        
+
+        //private int db_id = Customer.CustID;
         public void OnGet(int id)
         {
             Customer = _db.Customer.Find(id);
-
         }
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(int id)
         {
+            Customer.CustID = id;
             if (ModelState.IsValid)
             {
                 _db.Customer.Update(Customer);
                 await _db.SaveChangesAsync();
-                return RedirectToPage("Index");
+                return RedirectToPage("../Index", Customer);
             }
             else return Page();
         }
