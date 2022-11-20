@@ -86,5 +86,6 @@
     <div class="container pb-2">
         <a asp-page="/Account/Edit" asp-route-id="@Model.Customer.CustID" class="btn btn-primary" style="background-color:red">Edit</a>
         <a asp-page="/Account/Delete" asp-route-id="@Model.Customer.CustID" class="btn btn-primary" style="background-color:red">Delete</a>
+        <a asp-page="/Transaction/List" asp-route-id="@Model.Customer.CustID" class="btn btn-primary" style="background-color:red">Payment List</a>
     </div>
 </form>
