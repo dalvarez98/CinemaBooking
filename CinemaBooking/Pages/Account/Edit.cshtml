@@ -7,6 +7,10 @@
     }
 </style>
 <form method="post">
+    <a asp-page="/Account/Account" asp-route-id="Customer.CustID" class="btn btn-primary" style="background-color:red">Go Back?</a>
+</form>
+<form method="post">
+    <input hidden asp-for="Customer.CustID" />
     <div class="border p-3 mt-6">
         <div class="row pb-2">
             <h2 style="color:white">

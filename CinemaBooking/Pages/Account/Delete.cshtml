@@ -6,23 +6,85 @@
         background-color: black;
     }
 </style>
-
+<form method="post">
+    <a asp-page="/Account/Account" asp-route-id="Customer.CustID" class="btn btn-primary" style="background-color:red">Go Back?</a>
+</form>
 <form method="post">
     <div class="border p-4">
-        <h3 style="color:white">Sign In</h3>
-        <div class="mb-3" style="color:white">
-            Username:
-            <br />
-            <input asp-for="Customer.Username" style="color:red" />
+        <div class="row pb-2">
+            <h2 style="color:white">
+                Delete Account?
+            </h2>
+            <hr />
         </div>
         <div class="mb-3" style="color:white">
-            Password:
+            First Name:
             <br />
-            <input asp-for="Customer.Password" style="color:red" />
+            @Model.Customer.FirstN.ToString()
+            <br />
         </div>
-        <div class="container">
+        <div class="mb-3" style="color:white">
+            Last Name:
+            <br />
+            @Model.Customer.LastN.ToString()
+            <br />
+            <br />
+            <div class="mb-3" style="color:white">
+                Date of Birth:
+                <br />
+                @Model.Customer.DOB.Date.ToString("dd MMM yyyy")
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                Street:
+                <br />
+                @Model.Customer.Address.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                City:
+                <br />
+                @Model.Customer.City.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                State:
+                <br />
+                @Model.Customer.State.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                ZipCode:
+                <br />
+                @Model.Customer.ZipCode.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                Email:
+                <br />
+                @Model.Customer.Email.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                Phone Number:
+                <br />
+                @Model.Customer.PhoneNum.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                Username:
+                <br />
+                @Model.Customer.Username.ToString()
+                <br />
+            </div>
+            <div class="mb-3" style="color:white">
+                Password:
+                <br />
+                @Model.Customer.Password.ToString()
+                <br />
+            </div>
             <button type="submit" class="btn btn-primary" style="background-color:red">
-                Submit
+                Confirm
             </button>
         </div>
     </div>

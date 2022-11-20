@@ -22,9 +22,9 @@ namespace CinemaBooking.Pages
         {
             Customer = _db.Customer.Find(id);
         }
-        public async Task<IActionResult> OnPost(int id)
+
+        public async Task<IActionResult> OnPost()
         {
-            Customer.CustID = id;
             if (ModelState.IsValid)
             {
                 _db.Customer.Update(Customer);

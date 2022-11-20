@@ -15,15 +15,21 @@ namespace CinemaBooking.Pages
         {
             _db = db;
         }
-        public async Task<IActionResult> OnPost()
+
+        public void OnGet(int id)
         {
-            if (ModelState.IsValid)
+            Customer = _db.Customer.Find(id);
+        }
+        public async Task<IActionResult> OnPost(int id)
+        {
+      
+            var customerFromDb = _db.Customer.Find(id);
+            if (customerFromDb != null)
             {
-                await _db.Customer.AddAsync(Customer);
+                _db.Customer.Remove(customerFromDb);
                 await _db.SaveChangesAsync();
-                return RedirectToPage("Index");
             }
-            else return Page();
+            return RedirectToPage("../Index");
         }
     }
 }
