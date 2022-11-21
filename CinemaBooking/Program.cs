@@ -1,7 +1,33 @@
 using CinemaBooking.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options => {
+    options.Cookie.Name = "MyCookieAuth";
+    options.LoginPath = "/LoginRegister/Login";
+    options.AccessDeniedPath = "/LoginRegister/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+});
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("ManagerCredentialsRequired",
+        policy => policy.RequireClaim("manager", "Manager"));
+});
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("CrewmemberCredentials",
+        policy => policy.RequireClaim("UserCrewmember", "Crewmember"));
+});
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("CustomerCredentials",
+        policy => policy.RequireClaim("UserCustomer", "Customer"));
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
@@ -25,6 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

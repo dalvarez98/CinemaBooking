@@ -1,0 +1,31 @@
+﻿<style>
+	.but1 {
+		background-color: white;
+		color: black;
+	}
+</style>
+
+@using System.Security.Claims
+@if (User.Identity.IsAuthenticated) 
+{
+	<form method="post" style="color:cornsilk" class="form-inline" asp-page="/LoginRegister/Logout">
+		Welcome @User.Identity.Name
+		<button type="submit" class="but1 btn-primary btn-sm">Logout</button>
+		@if (User.HasClaim("manager", "Manager"))
+		{
+			//admin credentials are hard coded
+		}
+		else @if (User.HasClaim("UserCrewmember", "Crewmember")) {
+			<a class="but1 btn-primary btn-sm" asp-page="/LoginRegister/UserSettingCrewmember" asp-route-id="@User.FindFirst("UserId").Value">
+				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
+		}
+		else @if (User.HasClaim("UserCustomer", "Customer")) {
+			<a class="but1 btn-primary btn-sm" asp-page="/LoginRegister/UserSettingCustomer" asp-route-id="@User.FindFirst("UserId").Value">
+				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
+		}
+	</form>
+}
+else
+{
+	<a class="but1 btn-primary btn-sm" asp-page="/LoginRegister/Login">Login</a>
+}
