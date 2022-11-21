@@ -1,4 +1,47 @@
 ﻿@page
-@model CinemaBooking.Pages.Transaction.IndexModel
-@{
-}
+@model CinemaBooking.Pages.Transaction.ListModel
+
+<style>
+	body{
+		background-color:black;
+	}
+</style>
+
+<form method="get">
+    <div class="container p=5">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 style="color:red">Payment History</h2>
+            </div>
+        </div>
+        <table>
+            <thread>
+                <tr>
+                    <th scope="col" style="color:red">
+                        Card Number
+                    </th>
+                    <th scope="col" style="color:red">
+                        Card Provider
+                    </th>
+                    <th scope="col" style="color:red">
+                        Date of Purchase
+                    </th>
+                    <th scope="col" style="color:red">
+                        Total Amount Purchased
+                    </th>
+                </tr>
+            </thread>
+            <tbody>
+                @foreach (var obj in Model.Payment)
+                {
+                    <tr>
+                        <td width="20%" scope="row" style="color:red">@obj.CreditCNum</td>
+                        <td width="20%" scope="row" style="color:red">@obj.CardType</td>
+                        <td width="20%" scope="row" style="color:red">@obj.Date.ToString("MMM yyyy")</td>
+                        <td width="20%" scope="row" style="color:red">@obj.total</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

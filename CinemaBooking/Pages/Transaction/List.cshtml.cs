@@ -10,9 +10,8 @@ namespace CinemaBooking.Pages.Transaction
         private readonly ApplicationDbContext _db;
         [BindProperty]
         public Customer Customer { get; set; }
-
-        public Transaction Transaction { get; set; }
-
+        public IEnumerable<Transactions> Payment { get; set; }
+        public Transactions transaction { get; set; }
         public ListModel(ApplicationDbContext db)
         {
             _db = db;
@@ -21,8 +20,8 @@ namespace CinemaBooking.Pages.Transaction
         public void OnGet(int id)
         {
             Customer = _db.Customer.Find(id);
-            Transaction = _db.Transaction.Where(u => u.CustID = Customer.CustID);
+            Payment = _db.Transactions.Where(u => u.CustID == Customer.CustID).OrderByDescending(transaction => transaction.Date);
 
         }
-    }
+    }    
 }
