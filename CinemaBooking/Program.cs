@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using CEN4020_Website.Pages.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,15 @@ builder.Services.AddAuthorization(options => {
     options.AddPolicy("CustomerCredentials",
         policy => policy.RequireClaim("UserCustomer", "Customer"));
 });
+
+builder.Services.AddTransient<IEmailSender, SendGridEmailSender>();
+builder.Services.Configure<ResetMessageSenderOptions>(options =>
+{
+    options.SendGridKey = builder.Configuration["ExternalProviders:SendGrid:SENDGRID_API_KEY"];
+    options.SenderEmail = builder.Configuration["ExternalProviders:SendGrid:SenderEmail"];
+    options.SenderName = builder.Configuration["ExternalProviders:SendGrid:SenderName"];
+});
+
 
 // Add services to the container.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
