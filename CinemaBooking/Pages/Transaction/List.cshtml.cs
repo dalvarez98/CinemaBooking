@@ -20,7 +20,7 @@ namespace CinemaBooking.Pages.Transaction
         public void OnGet(int id)
         {
             Customer = _db.Customer.Find(id);
-            Payment = _db.Transactions.Where(u => u.CustID == Customer.CustID).OrderByDescending(transaction => transaction.Date);
+            Payment = _db.Transactions.Where(transaction => transaction.CustID == Customer.CustID).OrderByDescending(transaction => transaction.Date);
 
         }
     }    
