@@ -2,7 +2,7 @@
 
 namespace CinemaBooking.Model
 {
-    public class Transaction
+    public class Transactions
     {
         [Key]
         public int TransactionID{ get; set; }
