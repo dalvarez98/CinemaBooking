@@ -16,9 +16,9 @@ namespace CinemaBooking.Pages
             _db = db;
         }
         
-        public void OnGet(int id)
+        public void OnGet(Customer cust)
         {
-            Customer = _db.Customer.Find(3);
+            Customer = _db.Customer.Find(cust.CustID);
 
         }
         /*public async Task<IActionResult> OnPost()
