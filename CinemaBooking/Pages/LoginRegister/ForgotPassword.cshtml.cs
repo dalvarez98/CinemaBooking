@@ -19,8 +19,6 @@ namespace CinemaBooking.Pages.LoginRegister
 
         public async Task<IActionResult> OnPostAsync()
         {
-            TempData["Author"] = "false";
-            TempData["Reviewer"] = "false";
             if (!ModelState.IsValid)
                 return Page();
 
@@ -30,18 +28,18 @@ namespace CinemaBooking.Pages.LoginRegister
                 {
                     connection.Open();
                     //Searches for User in Customer Table
-                    String myCommand = "SELECT * FROM Author WHERE EmailAddress = @EmailAddress ";
+                    String myCommand = "SELECT * FROM Customer WHERE Email = @EmailAddress";
                     SqlCommand cmd = new SqlCommand(myCommand, connection);
 
-                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 100).Value = ForgotPasswordInfo.Email;
+                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = ForgotPasswordInfo.Email;
                     int idNumber = Convert.ToInt32(cmd.ExecuteScalar());
+                    int ti = 0;
 
                     if (idNumber > 0)
                     {
                         string emailResetCode = "Use this code to reset password 98";
-                        await _emailSender.SendEmailAsync(ForgotPasswordInfo.Email, "Password Reset", emailResetCode);
+                        //await _emailSender.SendEmailAsync(ForgotPasswordInfo.Email, "Password Reset", emailResetCode);
                         TempData["Password"] = idNumber; //Stores the Id of User to be used for password reset
-                        TempData["Author"] = "true"; //Used to verify is user is author or reviewer
                         return RedirectToPage("/LoginRegister/ConfirmationCode");
                     }
                 }

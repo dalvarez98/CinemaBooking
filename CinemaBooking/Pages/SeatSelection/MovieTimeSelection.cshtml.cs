@@ -19,7 +19,7 @@ namespace CinemaBooking.Pages.SeatSelection
         [BindProperty]
         public string selectedTheaterOptions { get; set; }
         private const int dateRange = 30;
-        private ApplicationDbContext db { get; }
+        private ApplicationDbContext db { get; set; }
         public List<SelectListItem> locationList = new List<SelectListItem>();
         public List<String> dateList = new List<String>();
         public SelectList Cinema { get; set; }

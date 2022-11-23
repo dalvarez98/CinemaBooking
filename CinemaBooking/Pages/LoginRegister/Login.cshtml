@@ -1,10 +1,20 @@
 ﻿@page
 @model CinemaBooking.Pages.LoginRegister.LoginModel
 @{
+    ViewData["Title"] = "Login";
+}
+
+@if(TempData["success"] != null)
+{
+    <h2 style="color: white">@TempData["success"]</h2>
+}
+else if(TempData["error"] != null)
+{
+    <h2 style="color: red">@TempData["error"]</h2>
 }
 
 <style>
-     body {
+    body {
         background-color: black;
     }
     .button {
@@ -70,7 +80,7 @@
                 <span class="line"></span>
             </p>
             <div class="form-group row justify-content-center">
-                <a class="button button1" asp-page="/LoginRegister/AuthorRegister">Signup</a>
+                <a class="button button1" asp-page="/LoginRegister/CustomerRegister">Signup</a>
             </div>
         </div>
     </form>

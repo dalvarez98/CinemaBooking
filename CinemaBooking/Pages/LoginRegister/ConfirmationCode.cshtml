@@ -1,5 +1,5 @@
 ﻿@page
-@model CinemaBooking.Pages.LoginRegister.ForgotPasswordModel
+@model CinemaBooking.Pages.LoginRegister.ConfirmationCodeModel
 @{
 }
 
@@ -40,9 +40,9 @@
             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
             <div class="form--group row" style="margin-bottom:10px">
                 <div class="col-sm-12">
-                    <input placeholder="Email Address" type="text" asp-for="ForgotPasswordInfo.Email" maxlength="50" class="form-control" />
+                    <input placeholder="Confirmation Code" type="text" asp-for="ConfirmationCodeInfo.Code" maxlength="2" class="form-control" />
                 </div>
-                <span class="text-danger" asp-validation-for="ForgotPasswordInfo.Email"></span>
+                <span class="text-danger" asp-validation-for="ConfirmationCodeInfo.Code"></span>
             </div>
             <div>
                 <input class="button button1" type="submit" value="Submit">

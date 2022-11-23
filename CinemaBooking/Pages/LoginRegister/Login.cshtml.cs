@@ -25,7 +25,7 @@ namespace CinemaBooking.Pages.LoginRegister
                 {
                     connection.Open();
                     //Searches for User in Customer Table
-                    String myCommand = "SELECT* FROM Customer WHERE Email = @EmailAddress AND Password = @Password ";
+                    String myCommand = "SELECT * FROM Customer WHERE Email = @EmailAddress AND Password = @Password";
                     SqlCommand cmd = new SqlCommand(myCommand, connection);
 
                     cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = LoginInfo.Email;

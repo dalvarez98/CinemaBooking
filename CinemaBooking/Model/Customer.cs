@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CinemaBooking.Model
 {
@@ -13,6 +14,7 @@ namespace CinemaBooking.Model
         [Required(ErrorMessage = "Please provide a Last Name", AllowEmptyStrings = false)]
         public string LastN { get; set; }
 
+        [BindProperty, DataType(DataType.Date)]
         [Required(ErrorMessage = "Please provide a DOB", AllowEmptyStrings = false)]
         public DateTime DOB { get; set; }
 
