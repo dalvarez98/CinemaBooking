@@ -34,7 +34,7 @@ namespace CinemaBooking.Pages.LoginRegister
                     cust.FirstN = reader.GetString(ordFName);
                     cust.LastN = reader.GetString(ordLName);
                     cust.Email = reader.GetString(ordEmail);
-                    cust.Password = reader.GetString(ordPassword);
+                    cust.Password = reader.GetChar(ordPassword);
                 }
             }
             catch (SqlException)
@@ -52,8 +52,6 @@ namespace CinemaBooking.Pages.LoginRegister
                     String myCommand = "UPDATE Customer SET FirstN = @fn, LastN = @ln, Email = @ea, Password = @pass WHERE CustID = " + cust.CustID;
                     SqlCommand command = new SqlCommand(myCommand, connection);
                     SqlDataAdapter adapter = new SqlDataAdapter();
-
-                    int ti = cust.CustID;
 
                     command.Parameters.Add("@fn", SqlDbType.NVarChar, 50).Value = cust.FirstN;
                     command.Parameters.Add("@ln", SqlDbType.NVarChar, 50).Value = cust.LastN;

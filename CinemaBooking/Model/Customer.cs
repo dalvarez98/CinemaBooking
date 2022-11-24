@@ -42,7 +42,6 @@ namespace CinemaBooking.Model
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Please provide a Password", AllowEmptyStrings = false)]
-        [StringLength(8, MinimumLength = 8, ErrorMessage = "Password must be 8 char long.")]
-        public string Password { get; set; }
+        public char Password { get; set; }
     }
 }

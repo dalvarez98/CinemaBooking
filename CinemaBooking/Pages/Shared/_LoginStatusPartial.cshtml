@@ -13,7 +13,8 @@
 		<button type="submit" class="but1 btn-primary btn-sm">Logout</button>
 		@if (User.HasClaim("manager", "Manager"))
 		{
-			//admin credentials are hard coded
+			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
+				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 		else @if (User.HasClaim("UserCrewmember", "Crewmember")) {
 			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
