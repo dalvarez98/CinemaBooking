@@ -33,7 +33,6 @@ namespace CinemaBooking.Pages.LoginRegister
 
                     cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = ForgotPasswordInfo.Email;
                     int idNumber = Convert.ToInt32(cmd.ExecuteScalar());
-                    int ti = 0;
 
                     if (idNumber > 0)
                     {

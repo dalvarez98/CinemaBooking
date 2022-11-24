@@ -16,11 +16,11 @@
 			//admin credentials are hard coded
 		}
 		else @if (User.HasClaim("UserCrewmember", "Crewmember")) {
-			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettingCrewmember" asp-route-id="@User.FindFirst("UserId").Value">
+			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
 				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 		else @if (User.HasClaim("UserCustomer", "Customer")) {
-			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettingCustomer" asp-route-id="@User.FindFirst("UserId").Value">
+			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
 				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 	</form>
