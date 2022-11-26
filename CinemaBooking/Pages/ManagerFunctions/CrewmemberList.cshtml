@@ -1,0 +1,127 @@
+﻿@page
+@model CinemaBooking.Pages.ManagerFunctions.CrewmemberListModel
+@{
+}
+
+@if(TempData["success"] != null)
+{
+	<h2 style="color: white">@TempData["success"]</h2>
+}
+else if(TempData["error"] != null)
+{
+	<h2 style="color: maroon;">@TempData["error"]</h2>
+}
+
+<style>
+	body {
+		background-color: black;
+	}
+	.but1 {
+		background-color: maroon;
+		color: white;
+		transition-duration: 0.4s;
+		border-radius: 4px;
+	}
+	.but1:hover {
+		background-color: red;
+		color: white;
+	}
+</style>
+
+<div class="container p-3">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 style="color: white">Crewmember List</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-page="CreateCrewmember" class="btn but1">
+				<i class="bi bi-pencil-square"></i> &nbsp;Create New Crewmember
+			</a>
+		</div>
+	</div>
+
+	<br>
+	<form asp-page-handler="GenerateReport" method="post"> 
+		<button class="btn but1">Generate Report</button>
+	</form>
+	<br>
+
+	<table class="table table-bordered" style="color: white; width:100%">
+		<thead style="color: white">
+			<tr>
+				<th>
+					First Name
+				</th>
+				<th>
+					Last Name
+				</th>
+				<th>
+					DOB
+				</th>
+				<th>
+					SSN
+				</th>
+				<th>
+					Address
+				</th>
+				<th>
+					City
+				</th>
+				<th>
+					State
+				</th>
+				<th>
+					Zip Code
+				</th>
+				<th>
+					Email Address
+				</th>
+				<th>
+					Phone Number
+				</th>
+				<th>
+					Salary
+				</th>
+				<th>
+					Username
+				</th>
+				<th>
+					CinemaID
+				</th>
+				<th>
+					
+				</th>
+			</tr>
+		</thead>
+		<tbody style="color: white">
+			@foreach(var obj in Model.ListOfCrewmember)
+			{
+				<tr>
+					<td width="50%">@obj.FirstN</td>
+					<td width="50%">@obj.LastN</td>
+					<td width="50%">@obj.DOB.ToShortDateString()</td>
+					<td width="50%">@obj.SSN</td>
+					<td width="50%">@obj.Address</td>
+					<td width="50%">@obj.City</td>
+					<td width="50%">@obj.State</td>
+					<td width="50%">@obj.ZipCode</td>
+					<td width="50%">@obj.Email</td>
+					<td width="50%">@obj.PhoneNum</td>
+					<td width="50%">@obj.Salary</td>
+					<td width="50%">@obj.Username</td>
+					<td width="50%">@obj.CinemaID</td>
+					<td>
+						<div class="w-75 btn-group" role="group">
+							<a asp-page="EditCrewmember" asp-route-id="@obj.EmpID" class="btn but1">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							<a asp-page="DeleteCrewmember" asp-route-id="@obj.EmpID" class="btn but1">
+								<i class="bi bi-trash-fill"></i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

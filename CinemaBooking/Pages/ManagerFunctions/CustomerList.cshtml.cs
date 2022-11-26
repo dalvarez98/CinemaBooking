@@ -26,7 +26,7 @@ namespace CinemaBooking.Pages.ManagerFunctions
             ListOfCustomer = _db.Customer; //Automatically opens db connection and executes SQL queries
         }
 
-        //Generate report button functionality. Allows the user to download a .csv file containing all author records
+        //Generate report button functionality. Allows the user to download a .csv file containing all customer records
         public ActionResult OnPostGenerateReport()
 		{
             var builder = new StringBuilder();
