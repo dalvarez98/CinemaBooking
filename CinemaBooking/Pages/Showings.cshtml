@@ -43,6 +43,9 @@
                     <td width="20%" scope="row" style="color:red">@obj.Rating</td>
                     <td width="20%" scope="row" style="color:red">@obj.Director</td>
                     <td width="20%" scope="row" style="color:red">@obj.Description</td>
+                    <td scope="row" style="color:red">
+                        <a asp-page="/Buys/ticket" asp-route-id="@obj.MovieID" class="btn btn-primary" style="background-color:red">Buy Tickets</a>
+                    </td>
                 </tr>
             }
         </tbody>

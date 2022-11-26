@@ -13,7 +13,7 @@ namespace CinemaBooking.Model
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public float total { get; set; }
+        public decimal total { get; set; }
         [Required]
         public int CustID { get; set; }//Foreign Key
     }
