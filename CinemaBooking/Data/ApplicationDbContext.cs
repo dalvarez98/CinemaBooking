@@ -16,7 +16,9 @@ namespace CinemaBooking.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Manager> Manager { get; set; }
         public DbSet<Movie> Movie { get; set; }
+        public DbSet<Seats> Seats { get; set; }
         public DbSet<Tickets> Tickets { get; set; }
+        public DbSet<TheaterRoom> TheaterRoom { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
