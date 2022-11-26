@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CinemaBooking.Model
 {
-    public class Crewmember
+    public class Manager
     {
         [Key]
         public int EmpID { get; set; }
-
         [Required(ErrorMessage = "Please provide a First Name", AllowEmptyStrings = false)]
         public string FirstN { get; set; }
 

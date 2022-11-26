@@ -2,6 +2,12 @@
 	.but1 {
 		background-color: maroon;
 		color: white;
+		transition-duration: 0.4s;
+		border-radius: 4px;
+	}
+	.but1:hover {
+		background-color: red;
+		color: white;
 	}
 </style>
 
@@ -10,22 +16,23 @@
 {
 	<form method="post" style="color:cornsilk" class="form-inline" asp-page="/LoginRegister/Logout">
 		Welcome @User.Identity.Name
-		<button type="submit" class="but1 btn-primary btn-sm">Logout</button>
+		<button type="submit" class="btn but1">Logout</button>
 		@if (User.HasClaim("manager", "Manager"))
 		{
-			//admin credentials are hard coded
+			<a class="btn but1" asp-page="/LoginRegister/UserSettings">
+				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 		else @if (User.HasClaim("UserCrewmember", "Crewmember")) {
-			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
+			<a class="btn but1" asp-page="/LoginRegister/UserSettings">
 				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 		else @if (User.HasClaim("UserCustomer", "Customer")) {
-			<a class="but1 btn-sm" asp-page="/LoginRegister/UserSettings">
+			<a class="btn but1" asp-page="/LoginRegister/UserSettings">
 				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 	</form>
 }
 else
 {
-	<a class="but1 btn-sm" asp-page="/LoginRegister/Login">Login</a>
+	<a class="btn but1" asp-page="/LoginRegister/Login">Login</a>
 }

@@ -13,6 +13,7 @@ namespace CinemaBooking.Data
         public DbSet<BuyTickets> BuyTickets { get; set; }
         public DbSet<Crewmember> Crewmember { get; set; }
         public DbSet<Customer> Customer { get; set; }
+        public DbSet<Manager> Manager { get; set; }
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
