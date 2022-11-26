@@ -25,6 +25,31 @@ namespace CinemaBooking.Pages.SeatSelection
         public SelectList Cinema { get; set; }
         public SelectList Dates { get; set; }
         public SelectList Movie { get; set; }
+        public class CinemaTime
+        {
+            public CinemaTime()
+            {
+                Cinema = "null";
+                Date = "null";
+                Movie = "null";
+            }
+            public CinemaTime(string cinema, string date, string movie)
+            {
+                Cinema = cinema;
+                Date = date;
+                Movie = movie;
+            }
+            public void Copy(CinemaTime c)
+            {
+                Cinema = c.Cinema;
+                Date = c.Date;
+                Movie = c.Movie;
+            }
+
+            public string Cinema { get; set; }
+            public string Date { get; set; }
+            public string Movie { get; set; }
+        }
         public MovieTimeSelectionModel(ApplicationDbContext _db)
         {
             this.db = _db;
@@ -92,8 +117,9 @@ namespace CinemaBooking.Pages.SeatSelection
             var dataMovie = db.Movie.Where(m => m.MovieID.ToString() == selectedMovie).FirstOrDefault();
             selectedMovie = dataMovie.MovieTitle;
             this.Movie = new SelectList(this.db.Movie, "MovieID", "MovieTitle");
+            CinemaTime cinemaTime = new CinemaTime(selectedLocation, selectedDate, selectedMovie);
 
-            return Page();
+            return RedirectToPage("/Buys/ticket",  cinemaTime);
         }
     }
 }

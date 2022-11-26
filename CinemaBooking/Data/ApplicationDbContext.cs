@@ -10,6 +10,7 @@ namespace CinemaBooking.Data
         {
 
         }
+        public DbSet<Cinema> Cinema { get; set; }
         public DbSet<BuyTickets> BuyTickets { get; set; }
         public DbSet<Crewmember> Crewmember { get; set; }
         public DbSet<Customer> Customer { get; set; }

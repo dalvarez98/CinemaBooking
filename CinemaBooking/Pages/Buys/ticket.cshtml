@@ -1,20 +1,21 @@
 ﻿@page
-@model CinemaBooking.Pages.BuyModel
+@model CinemaBooking.Pages.TicketModel
 
 <style>
     body{
-        background-color:red;
+        background-color:black
     }
 </style>
 
 <form method="post">
-    <div class="container">
-        <h2 class="p-3" style="color:red">Tickets</h2>
+    <div class="container" style="background-color:red">
+        <h2 class="p-3" style="color:white">Tickets</h2>
         <br/>
-        <h3 class="p-3" style="color:red">@Model.Movies.MovieTitle</h3>
-        <br/>
-        <h3 class="p-3" style="color:red">Select Location</h3>
-
+        <h3 class="p-3" style="color:white">@Model.Movie.MovieTitle</h3>
+        <br />
+        <p>How many Tickets do you wish to buy?</p>
+        <input type="number" name="amount" />        
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 
 </form>
