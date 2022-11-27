@@ -15,16 +15,19 @@ namespace CinemaBooking.Pages.SeatSelection
         public Movie Movie { get; set; }
         public Cinema Cinema { get; set; }
         public Seats Seat { get; set; }
-        public TheaterRoom Room { get; set; }
+        public TheaterRoom Room { get; set; } //Different from the room array. This represents the room as an entity
 
         bool [,] room = new bool[5,10];
         //Initalize the array
         private bool[,] InitalizeArray(bool[,] room) {
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 10; j++) {
-                    Seat = _db.Seats.Where(u => u.SeatNum == (i * 10 + j)).FirstOrDefault(); //Use i * 10 to convert i to a tenth place to act as a row. then add j to find the full value 
+                    Movie = _db.Movie.Where(u => u.MovieTitle.Equals(c.Movie)).FirstOrDefault();
+                    Cinema = _db.Cinema.Where(u => u.Name.Equals(c.Cinema)).FirstOrDefault();
+                    TheaterRoom T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+                    Seat = _db.Seats.Where(u => u.SeatNum == (i * 10 + j) && u.TheaterID == T_room.TheaterID).FirstOrDefault(); //Use i * 10 to convert i to a tenth place to act as a row. then add j to find the full value 
                     //Ex. I want Seat 19. this would be i = 1 * 10 which is 10 and the seat of 9 in row 1, so add 9
-                    if (Seat == null)
+                    if (Seat.SeatNum == j && Seat.RowNum == Convert.ToString(i) && Seat.Availabe > 0)
                     {
                         room[i, j] = true;
                     }
@@ -75,6 +78,25 @@ namespace CinemaBooking.Pages.SeatSelection
             CinemaTime cinemaTime = new CinemaTime();
             cinemaTime.Copy(c);
             room = InitalizeArray(room);
+        }
+        public async Task<IActionResult> OnPostAsync(CinemaTime c, int i, int j)
+        {
+            CinemaTime cinemaTime = new CinemaTime();
+            cinemaTime.Copy(c);
+            room = InitalizeArray(room);
+            if (room[i,j] == true)
+            {
+                room[i, j] = false;
+                Movie = _db.Movie.Where(u => u.MovieTitle.Equals(c.Movie)).FirstOrDefault();
+                Cinema = _db.Cinema.Where(u => u.Name.Equals(c.Cinema)).FirstOrDefault();
+                TheaterRoom T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+
+            }
+            else
+            {
+                return Page();
+            }
+            return RedirectToPage("/Buys/ticket", cinemaTime);
         }
     }
 }
