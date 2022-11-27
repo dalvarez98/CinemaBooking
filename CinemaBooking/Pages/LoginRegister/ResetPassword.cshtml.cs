@@ -34,7 +34,7 @@ namespace CinemaBooking.Pages.LoginRegister
                     cust.FirstN = reader.GetString(ordFName);
                     cust.LastN = reader.GetString(ordLName);
                     cust.Email = reader.GetString(ordEmail);
-                    cust.Password = reader.GetChar(ordPassword);
+                    cust.Password = reader.GetString(ordPassword);
                 }
             }
             catch (SqlException)

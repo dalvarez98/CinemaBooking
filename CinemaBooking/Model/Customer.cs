@@ -43,6 +43,6 @@ namespace CinemaBooking.Model
 
         [RegularExpression(@"^.{8,}$", ErrorMessage = "Minimum 8 characters required")]
         [Required(ErrorMessage = "Please provide a 8 character Password", AllowEmptyStrings = false)]
-        public char Password { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace CinemaBooking.Pages.ManagerFunctions
             customer = _db.Customer.Find(id);
         }
 
+        //Saves changes to database
         public async Task<IActionResult> OnPost(Customer customer)
         {
             _db.Customer.Update(customer);

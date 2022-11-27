@@ -1,5 +1,5 @@
 ﻿@page
-@model CinemaBooking.Pages.ManagerFunctions.EditCustomerModel
+@model CinemaBooking.Pages.ManagerFunctions.DeleteCrewmemberModel
 @{
 }
 
@@ -20,40 +20,39 @@
 </style>
 
 <form method="post">
-	<input hidden asp-for="customer.CustID" />
+	<input hidden asp-for="crewmember.EmpID" />
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="pl-3" style="color: white">Edit Customer</h2>
+			<h2 class="pl-3" style="color: white">Delete Crewmember</h2>
 			<hr style="color: white" />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.FirstN">First Name</label>
-			<input asp-for="customer.FirstN" class="form-control" maxlength="50" />
-			<span asp-validation-for="customer.FirstN" class="text-danger"></span>
+			<label asp-for="crewmember.FirstN">First Name</label>
+			<input asp-for="crewmember.FirstN" class="form-control" maxlength="50" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.LastN">Last Name</label>
-			<input asp-for="customer.LastN" class="form-control" maxlength="50" />
-			<span asp-validation-for="customer.LastN" class="text-danger"></span>
+			<label asp-for="crewmember.LastN">Last Name</label>
+			<input asp-for="crewmember.LastN" class="form-control" maxlength="50" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.DOB">DOB</label>
-			<input asp-for="customer.DOB" class="form-control" readonly />
-			<span asp-validation-for="customer.DOB" type="date" class="text-danger"></span>
+			<label asp-for="crewmember.DOB">DOB</label>
+			<input asp-for="crewmember.DOB" class="form-control" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.Address">Address</label>
-			<input asp-for="customer.Address" class="form-control" maxlength="100" />
-			<span asp-validation-for="customer.Address" class="text-danger"></span>
+			<label asp-for="crewmember.SSN">SSN</label>
+			<input asp-for="crewmember.SSN" class="form-control" maxlength="11" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.City">City</label>
-			<input asp-for="customer.City" class="form-control" maxlength="30" />
-			<span asp-validation-for="customer.City" class="text-danger"></span>
+			<label asp-for="crewmember.Address">Address</label>
+			<input asp-for="crewmember.Address" class="form-control" maxlength="100" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.State">State</label>
-			<select asp-for="customer.State">
+			<label asp-for="crewmember.City">City</label>
+			<input asp-for="crewmember.City" class="form-control" maxlength="30" readonly />
+		</div>
+		<div class="mb-3" style="color: white">
+			<label asp-for="crewmember.State">State</label>
+			<select asp-for="crewmember.State">
 				<option selected disabled>-- Select State --</option>
 				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
@@ -106,39 +105,33 @@
 				<option value="WI">Wisconsin</option>
 				<option value="WY">Wyoming</option>
 			</select>
-			<span asp-validation-for="customer.State" class="text-danger"></span>
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.ZipCode">Zip Code</label>
-			<input asp-for="customer.ZipCode" class="form-control" maxlength="9" />
-			<span asp-validation-for="customer.ZipCode" class="text-danger"></span>
+			<label asp-for="crewmember.ZipCode">Zip Code</label>
+			<input asp-for="crewmember.ZipCode" class="form-control" maxlength="9" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.Email">Email Address</label>
-			<input asp-for="customer.Email" class="form-control" maxlength="50" />
-			<span asp-validation-for="customer.Email" class="text-danger"></span>
+			<label asp-for="crewmember.Email">Email Address</label>
+			<input asp-for="crewmember.Email" class="form-control" maxlength="50" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.PhoneNum">Phone Number</label>
-			<input asp-for="customer.PhoneNum" class="form-control" maxlength="15" />
-			<span asp-validation-for="customer.PhoneNum" class="text-danger"></span>
+			<label asp-for="crewmember.PhoneNum">Phone Number</label>
+			<input asp-for="crewmember.PhoneNum" class="form-control" maxlength="15" placeholder="(888) 888-8888" readonly />
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.Username">Username</label>
-			<input asp-for="customer.Username" class="form-control" maxlength="30" />
-			<span asp-validation-for="customer.Username" class="text-danger"></span>
+			<label asp-for="crewmember.Salary">Salary</label>
+			<input asp-for="crewmember.Salary" class="form-control" />
+			<span asp-validation-for="crewmember.Salary" class="text-danger"></span>
 		</div>
 		<div class="mb-3" style="color: white">
-			<label asp-for="customer.Password">Password</label>
-			<input asp-for="customer.Password" class="form-control" maxlength="8" />
-			<span asp-validation-for="customer.Password" class="text-danger"></span>
+			<label asp-for="crewmember.Username">Username</label>
+			<input asp-for="crewmember.Username" class="form-control" maxlength="30" readonly />
 		</div>
-		<button type="submit" class="btn but1" style="width:150px">Update</button>
+		<div class="mb-3" style="color: white">
+			<label asp-for="crewmember.CinemaID">CinemaID</label>
+			<input asp-for="crewmember.CinemaID" class="form-control" readonly />
+		</div>
+		<button type="submit" class="btn but1" style="width:150px">Delete</button>
+		<a asp-page="CrewmemberList" class="btn but1" style="width: 150px">Previous</a>
 	</div>
 </form>
-
-@section Scripts {
-	@{
-	<partial name="_ValidationScriptsPartial"/>
-	}
-}

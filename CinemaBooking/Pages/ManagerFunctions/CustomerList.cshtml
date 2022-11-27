@@ -80,6 +80,9 @@ else if(TempData["error"] != null)
 					Username
 				</th>
 				<th>
+					Password
+				</th>
+				<th>
 					
 				</th>
 			</tr>
@@ -98,6 +101,7 @@ else if(TempData["error"] != null)
 					<td width="50%">@obj.Email</td>
 					<td width="50%">@obj.PhoneNum</td>
 					<td width="50%">@obj.Username</td>
+					<td width="50%">@obj.Password</td>
 					<td>
 						<div class="w-75 btn-group" role="group">
 							<a asp-page="EditCustomer" asp-route-id="@obj.CustID" class="btn but1">
