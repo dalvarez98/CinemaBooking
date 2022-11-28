@@ -35,10 +35,10 @@
                 @foreach (var obj in Model.Payment)
                 {
                     <tr style="border:solid">
-                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.CreditCNum</td>
-                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.CardType</td>
-                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.Date.ToString("MMM yyyy")</td>
-                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.total</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.CreditCNum</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.CardType</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.Date.ToString("MMM yyyy")</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.total</td>
                     </tr>
                     <tr>
                         @foreach(var nobj in Model.BuyTickets){
