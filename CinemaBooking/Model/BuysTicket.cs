@@ -2,7 +2,7 @@
 
 namespace CinemaBooking.Model
 {
-    public class BuyTickets
+    public class BuysTicket
     {
         public int CustID { get; set; } //foreign Key
         public int TransactionID { get; set; } //Foreign Key

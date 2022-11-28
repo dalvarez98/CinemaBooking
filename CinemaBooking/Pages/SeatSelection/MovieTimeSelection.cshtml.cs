@@ -127,7 +127,7 @@ namespace CinemaBooking.Pages.SeatSelection
             this.Movie = new SelectList(this.db.Movie, "MovieID", "MovieTitle");
             CinemaTime cinemaTime = new CinemaTime(selectedLocation, selectedDate, selectedMovie);
 
-            return RedirectToPage("/Buys/ticket",  cinemaTime);
+            return RedirectToPage("/SeatSelection/Seats",  cinemaTime);
         }
     }
 }

@@ -1,0 +1,32 @@
+﻿@page
+@model CinemaBooking.Pages.Transactions.T_DetailsModel
+
+<div class="container" style="border">
+    <div class="pb-3">
+        <h2>Tickets</h2>
+    </div>
+    <table>
+        <thread>
+            <tr>
+                <th scope="col">Ticket Number</th>
+                <th scope="col">Time</th>
+                <th scope="col">Date</th>
+                <th scope="col">Price</th>
+                <th scope="col">Theater</th>
+                <th scope="col">Room</th>
+                <th scope="col">Seat</th>
+            </tr>
+        </thread>
+        <tbody>
+                <tr>
+                    <td width="15%" scope="row" style="border-block">@Model.Tickets.TicketNum</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Tickets.ShowTime.TimeOfDay</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Tickets.ShowDate.Date</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Tickets.Price</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Cinema.Name</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Room.TheaterRoom</td>
+                    <td width="15%" scope="row" style="border-block">@Model.Tickets.SeatNum</td>
+                </tr>
+        </tbody>
+    </table>
+</div>

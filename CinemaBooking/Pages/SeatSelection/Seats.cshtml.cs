@@ -15,19 +15,20 @@ namespace CinemaBooking.Pages.SeatSelection
         public Movie Movie { get; set; }
         public Cinema Cinema { get; set; }
         public Seats Seat { get; set; }
-        public TheaterRoom Room { get; set; } //Different from the room array. This represents the room as an entity
+        public Room Room { get; set; } //Different from the room array. This represents the room as an entity
 
-        bool [,] room = new bool[5,10];
+        bool [,] room = new bool[3,10];
         //Initalize the array
-        private bool[,] InitalizeArray(bool[,] room) {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 10; j++) {
+        private bool[,] InitalizeArray(bool[,] room, CinemaTime c) {
+            for (int i = 1; i <=3; i++) {
+                for (int j = 1; j <= 10; j++) {
                     Movie = _db.Movie.Where(u => u.MovieTitle.Equals(c.Movie)).FirstOrDefault();
                     Cinema = _db.Cinema.Where(u => u.Name.Equals(c.Cinema)).FirstOrDefault();
-                    TheaterRoom T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-                    Seat = _db.Seats.Where(u => u.SeatNum == (i * 10 + j) && u.TheaterID == T_room.TheaterID).FirstOrDefault(); //Use i * 10 to convert i to a tenth place to act as a row. then add j to find the full value 
-                    //Ex. I want Seat 19. this would be i = 1 * 10 which is 10 and the seat of 9 in row 1, so add 9
-                    if (Seat.SeatNum == j && Seat.RowNum == Convert.ToString(i) && Seat.Availabe > 0)
+                    Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+                    int z = i * j;
+                    Seat = _db.Seats.Where(u => u.SeatNum == z && u.TheaterID == T_room.TheaterRoom).FirstOrDefault();
+                    
+                    if (Seat.SeatNum == j && Seat.RowNum == Convert.ToString(i * j) && Seat.Availabe > 0)
                     {
                         room[i, j] = true;
                     }
@@ -77,26 +78,34 @@ namespace CinemaBooking.Pages.SeatSelection
         {
             CinemaTime cinemaTime = new CinemaTime();
             cinemaTime.Copy(c);
-            room = InitalizeArray(room);
+            room = InitalizeArray(room, cinemaTime);
         }
         public async Task<IActionResult> OnPostAsync(CinemaTime c, int i, int j)
         {
             CinemaTime cinemaTime = new CinemaTime();
             cinemaTime.Copy(c);
-            room = InitalizeArray(room);
+            room = InitalizeArray(room, cinemaTime);
             if (room[i,j] == true)
             {
-                room[i, j] = false;
                 Movie = _db.Movie.Where(u => u.MovieTitle.Equals(c.Movie)).FirstOrDefault();
                 Cinema = _db.Cinema.Where(u => u.Name.Equals(c.Cinema)).FirstOrDefault();
-                TheaterRoom T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+                Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+                Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom&& u.RowNum.Equals(Convert.ToString(i)) && (u.SeatNum == i * j)).FirstOrDefault();
 
+                if (Seat == null) return Page();
+                Seat.Availabe = 0;
+                //Save SeatID for ticket
+                cinemaTime.Seat = Seat.SeatNum;
+                cinemaTime.Theater = Seat.TheaterID;
+                _db.Seats.Update(Seat);
+                await _db.SaveChangesAsync();
+                return RedirectToPage("/Buys/ticket", cinemaTime);
             }
             else
             {
                 return Page();
             }
-            return RedirectToPage("/Buys/ticket", cinemaTime);
+
         }
     }
 }

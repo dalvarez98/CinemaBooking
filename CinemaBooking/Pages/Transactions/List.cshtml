@@ -1,5 +1,5 @@
 ﻿@page
-@model CinemaBooking.Pages.Transaction.ListModel
+@model CinemaBooking.Pages.Transactions.ListModel
 
 <style>
 	body{
@@ -14,9 +14,9 @@
                 <h2 style="color:red">Payment History</h2>
             </div>
         </div>
-        <table>
+        <table style="border:solid">
             <thread>
-                <tr>
+                <tr style="border:solid">
                     <th scope="col" style="color:red">
                         Card Number
                     </th>
@@ -34,11 +34,18 @@
             <tbody>
                 @foreach (var obj in Model.Payment)
                 {
+                    <tr style="border:solid">
+                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.CreditCNum</td>
+                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.CardType</td>
+                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.Date.ToString("MMM yyyy")</td>
+                        <td width="20%" scope="row" style="color:red" style="border:solid">@obj.total</td>
+                    </tr>
                     <tr>
-                        <td width="20%" scope="row" style="color:red">@obj.CreditCNum</td>
-                        <td width="20%" scope="row" style="color:red">@obj.CardType</td>
-                        <td width="20%" scope="row" style="color:red">@obj.Date.ToString("MMM yyyy")</td>
-                        <td width="20%" scope="row" style="color:red">@obj.total</td>
+                        @foreach(var nobj in Model.BuyTickets){
+                            <td>
+                                <a class ="btn btn-primary" asp-page="/Transactions/TicketDetails" asp-route-id="@nobj.TicketNum">Get Ticket</a>
+                            </td>
+                            }
                     </tr>
                 }
             </tbody>

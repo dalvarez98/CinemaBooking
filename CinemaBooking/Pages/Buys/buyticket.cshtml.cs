@@ -13,7 +13,7 @@ namespace CinemaBooking.Pages
 
         public Movie Movies { get; set; }    
         public Customer Customer { get; set; }
-        public IQueryable<BuyTickets> Buy { get; set; }
+        public IQueryable<BuysTicket> Buy { get; set; }
         public BuyModel(ApplicationDbContext db)
         {
             _db = db;

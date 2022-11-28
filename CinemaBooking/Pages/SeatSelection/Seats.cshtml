@@ -1,5 +1,24 @@
 ﻿@page
 @model CinemaBooking.Pages.SeatSelection.SeatsModel
-@{
 
-}
+<style>
+    body{
+        background-color:black;
+    }
+</style>
+
+<form method="post">
+    <div class="container" style="border">
+        <h2>Pick a Seat</h2>
+        <table>
+            @for(int i = 1; i <=3; i++){
+                <tr width="33%" scope="col"></tr>
+                for(int j = 1; j <= 10; j++){
+                    <tr width="10%" scope="row">
+                        <button type="submit" class="btn btn-primary">@Model.Seat.SeatNum</button> 
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</form>
