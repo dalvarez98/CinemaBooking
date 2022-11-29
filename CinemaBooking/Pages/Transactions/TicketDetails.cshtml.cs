@@ -46,6 +46,9 @@ namespace CinemaBooking.Pages.Transactions
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
                 Transaction.total = Transaction.total - Tickets.Price;
+
+                _db.Tickets.Remove(Tickets);
+                _db.BuysTicket.Remove(BuysTicket);
                 if (Transaction.total <= 0)
                 {
                     _db.Transaction.Remove(Transaction);
@@ -54,13 +57,9 @@ namespace CinemaBooking.Pages.Transactions
                 {
                     _db.Update(Transaction);
                 }
-                _db.Tickets.Remove(Tickets);
-                _db.BuysTicket.Remove(BuysTicket);
                 await _db.SaveChangesAsync();
-                return RedirectToPage("/Transactions/List");
             }
-            else return RedirectToPage("../Index");
-
+            return RedirectToPage("/Transactions/List");
         }
     }
 }
