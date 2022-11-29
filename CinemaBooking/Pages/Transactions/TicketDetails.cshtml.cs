@@ -27,6 +27,7 @@ namespace CinemaBooking.Pages.Transactions
         public Cinema Cinema { get; set; }
         [AllowNull]
         public Room Room { get; set; }
+        public Seats Seats { get; set; }
         public void OnGet(int t_id,int trans_id, int c_id)
         {
            
@@ -45,10 +46,16 @@ namespace CinemaBooking.Pages.Transactions
             Transaction = _db.Transaction.Where(u => u.CustID == c_id && u.TransactionID == trans_id).FirstOrDefault();
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
+                Seats = _db.Seats.Where(s => s.TheaterID == Tickets.TheaterID && s.TicketNum == Tickets.TicketNum).FirstOrDefault();
                 Transaction.total = Transaction.total - Tickets.Price;
-
+                //Reset Seats table to the default
+                Seats.Availabe = 1;
+                Seats.TicketNum = Convert.ToInt32(null);
+                _db.Seats.Update(Seats);
+                //Delete Tables starting at the lowest in the hierarchy
                 _db.Tickets.Remove(Tickets);
                 _db.BuysTicket.Remove(BuysTicket);
+                //Determine it the transaction still has other tickets by checking the total saved
                 if (Transaction.total <= 0)
                 {
                     _db.Transaction.Remove(Transaction);
