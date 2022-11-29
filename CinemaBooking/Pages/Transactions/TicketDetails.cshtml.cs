@@ -36,11 +36,6 @@ namespace CinemaBooking.Pages.Transactions
                 Cinema = _db.Cinema.Find(Tickets.CinemaID);
                 Room = _db.TheaterRoom.Find(Tickets.TheaterID);
             }
-            else
-            {
-                Cinema.Name = "0";
-                Room.TheaterRoom = 0;
-            }
         }
 
         public async Task<IActionResult> OnPost(int t_id, int trans_id, int c_id)
@@ -51,7 +46,7 @@ namespace CinemaBooking.Pages.Transactions
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
                 Transaction.total = Transaction.total - Tickets.Price;
-                if (Transaction.total == 0)
+                if (Transaction.total <= 0)
                 {
                     _db.Transaction.Remove(Transaction);
                 }
@@ -59,12 +54,12 @@ namespace CinemaBooking.Pages.Transactions
                 {
                     _db.Update(Transaction);
                 }
-                _db.BuysTicket.Remove(BuysTicket);
                 _db.Tickets.Remove(Tickets);
+                _db.BuysTicket.Remove(BuysTicket);
                 await _db.SaveChangesAsync();
-                return RedirectToAction("/Transactions/List");
+                return RedirectToPage("/Transactions/List");
             }
-            else return RedirectToAction("../Index");
+            else return RedirectToPage("../Index");
 
         }
     }
