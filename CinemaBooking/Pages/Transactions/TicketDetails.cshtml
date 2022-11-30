@@ -1,0 +1,40 @@
+﻿@page
+@model CinemaBooking.Pages.Transactions.T_DetailsModel
+<style>
+    body{
+        background-color:black;
+    }
+</style>
+
+<div class="container" >
+    <div class="pb-3">
+        <h2 style="color:red">Ticket Details</h2>
+    </div>
+    <table>
+        <thread>
+            <tr style="color:red">
+                <th scope="col" style="border:solid">Ticket Number</th>
+                <th scope="col" style="border:solid">Time</th>
+                <th scope="col" style="border:solid">Date</th>
+                <th scope="col" style="border:solid">Price</th>
+                <th scope="col" style="border:solid">Theater</th>
+                <th scope="col" style="border:solid">Room</th>
+                <th scope="col" style="border:solid">Seat</th>
+            </tr>
+        </thread>
+        <tbody>
+                <tr style="color:red">
+                    <td width="15%" scope="row" style="border:solid">@Model.Tickets.TicketNum</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Tickets.ShowTime.TimeOfDay</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Tickets.ShowDate.ToString("MMM dd yyyy")</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Tickets.Price</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Cinema.Name</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Room.TheaterRoom</td>
+                    <td width="15%" scope="row" style="border:solid">@Model.Tickets.SeatNum</td>
+                </tr>
+        </tbody>
+    </table>
+    <form method="post">
+        <button type="submit" class="btn btn-primary" style="background-color:red">Cancel Ticket</button>
+    </form>
+</div>

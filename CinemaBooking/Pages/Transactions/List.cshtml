@@ -1,0 +1,53 @@
+﻿@page
+@model CinemaBooking.Pages.Transactions.ListModel
+
+<style>
+	body{
+		background-color:black;
+	}
+</style>
+
+<form method="get">
+    <div class="container p=5">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 style="color:red">Payment History</h2>
+            </div>
+        </div>
+        <table style="color:red">
+            <thread>
+                <tr style="border:solid">
+                    <th scope="col" style="border:solid">
+                        Card Number
+                    </th>
+                    <th scope="col" style="border:solid">
+                        Card Provider
+                    </th>
+                    <th scope="col" style="border:solid">
+                        Date of Purchase
+                    </th>
+                    <th scope="col" style="border:solid">
+                        Total Amount Purchased
+                    </th>
+                    <th scope="col" style="border:solid">
+                        Ticket
+                    </th>
+                </tr>
+            </thread>
+            <tbody>
+                @foreach (var obj in Model.Payment)
+                {
+                    <tr style="border:solid">
+                        <td width="20%" scope="row" style="color:red" >@obj.CreditCNum</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.CardType</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.Date.ToString("MMM yyyy")</td>
+                        <td width="20%" scope="row" style="color:red" >@obj.total</td> 
+                        <td>
+                            <a class ="btn btn-primary" asp-page="/Transactions/TicketDetails" asp-route-c_id="@obj.CustID"  asp-route-trans_id="@obj.TransactionID">Get Ticket</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

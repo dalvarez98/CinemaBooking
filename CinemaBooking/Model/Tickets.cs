@@ -7,11 +7,11 @@ namespace CinemaBooking.Model
         [Key]
         public int TicketNum { get; set; }
 
-        public string ShowTime { get; set; }
+        public DateTime ShowTime { get; set; }
 
-        public string ShowDate { get; set; }
+        public DateTime ShowDate { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         public int CinemaID { get; set; } //Foreign Key
 
