@@ -1,0 +1,67 @@
+﻿@page
+@model CinemaBooking.Pages.ManagerFunctions.CreateMovieTimeModel
+@{
+}
+
+@if(TempData["success"] != null)
+{
+	<h2 style="color: white">@TempData["success"]</h2>
+}
+
+<style>
+	body {
+		background-color: black;
+	}
+	.but1 {
+		background-color: maroon;
+		color: white;
+		transition-duration: 0.4s;
+		border-radius: 4px;
+	}
+	.but1:hover {
+		background-color: red;
+		color: white;
+	}
+</style>
+
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="pl-3" style="color: white">Create Showtime</h2>
+			<hr style="color: white"/>
+		</div>
+		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+		<div style="display: flex">
+			<div class="mb-3" style="color: white; padding: 20px">
+				<label>Movies</label>
+				<select class="Dropdown-Select" asp-for="selectedMovie" asp-items="@Model.Movie">
+					<option selected disabled>-- Select Movie --</option>
+				</select>
+			</div>
+			<div class="mb-3" style="color: white; padding: 20px">
+				<label>Dates</label>
+				<select asp-for="selectedDate" asp-items="@Model.Dates" onchange="this.form.submit()">
+					<option selected disabled>-- Select Date --</option>
+				</select>
+			</div>
+			<div class="mb-3" style="color: white; padding: 20px">
+				<label>Theaters</label>
+				<select asp-for="selectedTheaterRoom" asp-items="@Model.TheaterRooms" onchange="this.form.submit()">
+					<option selected disabled>-- Select Theater --</option>
+				</select>
+			</div>
+			<div class="mb-3" style="color: white; padding: 20px">
+				<label>Times</label>
+				<select asp-for="selectedTime" asp-items="@Model.Times">
+				</select>
+			</div>
+		</div>
+		<input type="submit" class="btn but1" style="width:150px;" value="Create" name="createTime">
+	</div>
+</form>
+
+@section Scripts {
+	@{
+	<partial name="_ValidationScriptsPartial"/>
+	}
+}

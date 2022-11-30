@@ -75,21 +75,27 @@ namespace CinemaBooking.Pages.LoginRegister
                         return RedirectToPage("/Index");
                     }
                     //Searches for User in Manager Table if not found in Crewmember Table
-                    myCommand = "SELECT* FROM Manager WHERE Email = @EmailAddress AND Password = @Password ";
+                    myCommand = "SELECT EmpID, CinemaID FROM Manager WHERE Email = @EmailAddress AND Password = @Password ";
                     cmd = new SqlCommand(myCommand, connection);
 
                     cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = LoginInfo.Email;
                     cmd.Parameters.Add("@Password", SqlDbType.Char, 8).Value = LoginInfo.Password;
-                    idNumber = Convert.ToInt32(cmd.ExecuteScalar());
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (idNumber > 0)
+                    int ordEmpID = reader.GetOrdinal("EmpID");
+                    int ordCinemaID = reader.GetOrdinal("CinemaID");
+
+                    reader.Read();
+
+                    if (reader.GetInt32(ordEmpID) > 0)
                     {
                         //Builds the Users Id card
                         var claims = new List<Claim> {
                             new Claim(ClaimTypes.Name, LoginInfo.Email),
                             new Claim(ClaimTypes.Email, LoginInfo.Email),
                             new Claim("manager", "Manager"),
-                            new Claim("UserId", idNumber.ToString())
+                            new Claim("UserId", reader.GetInt32(ordEmpID).ToString()),
+                            new Claim("CinemaId", reader.GetInt32(ordCinemaID).ToString())
                         };
                         //Creates Cookie for user session
                         var identity = new ClaimsIdentity(claims, "MyCookieAuth");

@@ -57,6 +57,7 @@ namespace CinemaBooking.Pages.SeatSelection
                 Console.WriteLine("Error");
             }
         }
+
         //Stores all dates 30 days from today
         public void dates()
         {
