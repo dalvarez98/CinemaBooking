@@ -73,13 +73,16 @@ namespace CinemaBooking.Pages.SeatSelection
             foreach(var s in Seat) 
             { 
                 if (s == null) return Page();
-                s.Availabe = 0;
-                //Save SeatID for ticket
-                cinemaTime.Seat = s.SeatNum;
-                cinemaTime.Theater = s.TheaterID;
-                _db.Seats.Update(s);
-                await _db.SaveChangesAsync();
-                return RedirectToPage("/Buys/ticket", cinemaTime);
+                if (s.Availabe != 0)
+                {
+                    s.Availabe = 0;
+                    //Save SeatID for ticket
+                    cinemaTime.Seat = s.SeatNum;
+                    cinemaTime.Theater = s.TheaterID;
+                    _db.Seats.Update(s);
+                    await _db.SaveChangesAsync();
+                    return RedirectToPage("/Buys/ticket", cinemaTime);
+                }
             }
             return Page();
         }

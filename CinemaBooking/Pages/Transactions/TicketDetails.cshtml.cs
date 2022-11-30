@@ -47,6 +47,7 @@ namespace CinemaBooking.Pages.Transactions
             Transaction = _db.Transaction.Where(u => u.CustID == c_id && u.TransactionID == BuysTicket.TransactionID).FirstOrDefault();
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
+                BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id && b.TicketNum == Tickets.TicketNum).FirstOrDefault();
                 Seats = _db.Seats.Where(s => s.TheaterID == Tickets.TheaterID && s.TicketNum == Tickets.TicketNum).FirstOrDefault();
                 Transaction.total = Transaction.total - Tickets.Price;
                 //Reset Seats table to the default

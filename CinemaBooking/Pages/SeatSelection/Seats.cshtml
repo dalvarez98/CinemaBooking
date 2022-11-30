@@ -18,15 +18,17 @@
             </thread>
             <tbody>
             @foreach(var obj in Model.Seat){
+                int x = 1;
                     if (obj.Availabe == 1)
                     {
                         <tr>
                             <td scope="row">
-                                <input type="number" hidden="hidden" name="id" value="@obj.SeatNum"/>
+                                <input type="number" hidden="hidden" name="id" value="x"/>
                             <button type="submit" class="btn btn-primary">@obj.SeatNum</button>
                         </td>
                     </tr>
                 }
+                x++;
             }
             </tbody>
         </table>
