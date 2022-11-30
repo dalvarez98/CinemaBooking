@@ -3,6 +3,7 @@ using CinemaBooking.Model;
 using CinemaBooking.Pages.ManagerFunctions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using NuGet.Protocol;
@@ -30,26 +31,21 @@ namespace CinemaBooking.Pages
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
         }
 
-        public int FindSeat(Room room)
+        public async Task<IActionResult> OnPost(string movie, string date, string cinema, string number, string type)
         {
-            
-            IEnumerable<Seats> S = _db.Seats.Where(u => u.TheaterID == room.TheaterRoom).ToList();
-            foreach(var obj in S)
+            int id = 0 ;
+            Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
+            Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
+            Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
+            Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            IEnumerable<Seats> S = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom).ToList();
+            foreach (var obj in S)
             {
                 if (obj.Availabe != 0)
                 {
-                    return obj.SeatNum;
+                    id = obj.SeatNum;
                 }
-                
             }
-            return 0;
-        }
-        public async Task<IActionResult> OnPost(string movie, string date, string cinema, string number, string type)
-        {
-            Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
-            Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
-            Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-            int id = FindSeat(T_room);
             if (id == 0) return RedirectToPage("../Index");
             Seats = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).FirstOrDefault();
 
@@ -57,7 +53,6 @@ namespace CinemaBooking.Pages
                 tickets.Price = Convert.ToDecimal(20);
                 tickets.ShowDate = Convert.ToDateTime(date).Date;
                 tickets.ShowTime = Convert.ToDateTime(date);
-                Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
                 tickets.CinemaID = Cinema.CinemaID;
                 tickets.TheaterID = Seats.TheaterID;
                 tickets.SeatNum = Seats.SeatNum;
