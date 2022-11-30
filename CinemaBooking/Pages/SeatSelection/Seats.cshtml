@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model CinemaBooking.Pages.SeatSelection.SeatsModel
 
 <style>
@@ -8,17 +8,27 @@
 </style>
 
 <form method="post">
-    <div class="container" style="border">
-        <h2>Pick a Seat</h2>
-        <table>
-            @for(int i = 1; i <=3; i++){
-                <tr width="33%" scope="col"></tr>
-                for(int j = 1; j <= 10; j++){
-                    <tr width="10%" scope="row">
-                        <button type="submit" class="btn btn-primary">@Model.Seat.SeatNum</button> 
+    <div class="container" >
+        <h2 style="color:red">Pick a Seat</h2>
+        <table style="border:double">
+            <thread>
+                    <tr>
+                        <th scope="col"></th>
+                    </tr>
+            </thread>
+            <tbody>
+            @foreach(var obj in Model.Seat){
+                    if (obj.Availabe == 1)
+                    {
+                        <tr>
+                            <td scope="row">
+                                <input type="number" hidden="hidden" name="id" value="@obj.SeatNum"/>
+                            <button type="submit" class="btn btn-primary">@obj.SeatNum</button>
+                        </td>
                     </tr>
                 }
             }
+            </tbody>
         </table>
     </div>
 </form>
