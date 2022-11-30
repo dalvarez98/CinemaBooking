@@ -19,15 +19,15 @@ namespace CinemaBooking.Pages.SeatSelection
         [BindProperty]
         public string selectedTheaterOptions { get; set; }
         private const int dateRange = 30;
-        private ApplicationDbContext db { get; set; }
+        private readonly ApplicationDbContext _db;
         public List<SelectListItem> locationList = new List<SelectListItem>();
         public List<String> dateList = new List<String>();
         public SelectList Cinema { get; set; }
         public SelectList Dates { get; set; }
         public SelectList Movie { get; set; }
-        public MovieTimeSelectionModel(ApplicationDbContext _db)
+        public MovieTimeSelectionModel(ApplicationDbContext db)
         {
-            this.db = _db;
+            _db = db;
         }
         //Grabs all available locations of theaters from database
         public void locations()
@@ -79,20 +79,22 @@ namespace CinemaBooking.Pages.SeatSelection
             dates();
             selectedDate = DateTime.Now.ToShortDateString();
             selectedTheaterOptions = "Reserved Seating";
-            this.Cinema = new SelectList(locationList, "Value", "Value");
-            this.Dates = new SelectList(dateList);
-            this.Movie = new SelectList(this.db.Movie, "MovieID", "MovieTitle");
+            Cinema = new SelectList(locationList, "Value", "Value");
+            selectedLocation = Cinema.FirstOrDefault().Value;
+            Dates = new SelectList(dateList);
+            Movie = new SelectList(_db.Movie, "MovieID", "MovieTitle");
+            selectedMovie = Movie.FirstOrDefault().Text;
         }
         public IActionResult OnPost()
         {
             locations();
-            this.Cinema = new SelectList(locationList, "Value", "Value");
+            Cinema = new SelectList(locationList, "Value", "Value");
 
             dates();
-            this.Dates = new SelectList(dateList);
-            var dataMovie = db.Movie.Where(m => m.MovieID.ToString() == selectedMovie).FirstOrDefault();
+            Dates = new SelectList(dateList);
+            var dataMovie = _db.Movie.Where(m => m.MovieID.ToString() == selectedMovie).FirstOrDefault();
             selectedMovie = dataMovie.MovieTitle;
-            this.Movie = new SelectList(this.db.Movie, "MovieID", "MovieTitle");
+            Movie = new SelectList(_db.Movie, "MovieID", "MovieTitle");
 
             return Page();
         }
