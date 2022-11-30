@@ -29,6 +29,9 @@
                     <th scope="col" style="border:solid">
                         Total Amount Purchased
                     </th>
+                    <th scope="col" style="border:solid">
+                        Ticket
+                    </th>
                 </tr>
             </thread>
             <tbody>
@@ -38,14 +41,10 @@
                         <td width="20%" scope="row" style="color:red" >@obj.CreditCNum</td>
                         <td width="20%" scope="row" style="color:red" >@obj.CardType</td>
                         <td width="20%" scope="row" style="color:red" >@obj.Date.ToString("MMM yyyy")</td>
-                        <td width="20%" scope="row" style="color:red" >@obj.total</td>
-                    </tr>
-                    <tr>
-                        @foreach(var nobj in Model.BuyTickets){
-                            <td>
-                                <a class ="btn btn-primary" asp-page="/Transactions/TicketDetails" asp-route-c_id="@obj.CustID" asp-route-t_id="@nobj.TicketNum" asp-route-trans_id="@nobj.TransactionID">Get Ticket</a>
-                            </td>
-                            }
+                        <td width="20%" scope="row" style="color:red" >@obj.total</td> 
+                        <td>
+                            <a class ="btn btn-primary" asp-page="/Transactions/TicketDetails" asp-route-c_id="@obj.CustID"  asp-route-trans_id="@obj.TransactionID">Get Ticket</a>
+                        </td>
                     </tr>
                 }
             </tbody>

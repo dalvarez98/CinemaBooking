@@ -30,10 +30,6 @@ namespace CinemaBooking.Pages.Transactions
         {
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
             Payment = GetTransactions(Customer);
-            foreach (Transaction transaction in Payment)
-            {
-                BuyTickets = _db.BuysTicket.Where(u => u.TransactionID == transaction.TransactionID && u.CustID == Customer.CustID).ToList();
-            }
         }   
     }
 }

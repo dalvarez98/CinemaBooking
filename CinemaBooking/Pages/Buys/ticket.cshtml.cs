@@ -99,7 +99,7 @@ namespace CinemaBooking.Pages
             await _db.Transaction.AddAsync(Transaction);
             await _db.SaveChangesAsync();
 
-            Transaction = _db.Transaction.Where(u => u.CustID == Customer.CustID && u.Date.Equals(Convert.ToDateTime(cinemaTime.Date)) && u.CreditCNum.Equals(number) && u.CardType.Equals(type)).FirstOrDefault(); 
+            Transaction = _db.Transaction.Where(u => u.CustID == Customer.CustID && u.Date.Equals(Convert.ToDateTime(cinemaTime.Date)) && u.CreditCNum.Equals(number) && u.CardType.Equals(type)).OrderByDescending(u => u.TransactionID).FirstOrDefault(); 
             Buys.TransactionID = Transaction.TransactionID;
             await _db.BuysTicket.AddAsync(Buys);
             await _db.SaveChangesAsync();

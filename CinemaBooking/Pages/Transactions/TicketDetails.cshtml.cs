@@ -28,10 +28,10 @@ namespace CinemaBooking.Pages.Transactions
         [AllowNull]
         public Room Room { get; set; }
         public Seats Seats { get; set; }
-        public void OnGet(int t_id,int trans_id, int c_id)
+        public void OnGet(int trans_id, int c_id)
         {
-           
-            Tickets = _db.Tickets.Where(t => t.TicketNum == t_id).FirstOrDefault();
+            BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id).FirstOrDefault();
+            Tickets = _db.Tickets.Where(t => t.TicketNum == BuysTicket.TicketNum).FirstOrDefault();
             if (Tickets != null)
             {
                 Cinema = _db.Cinema.Find(Tickets.CinemaID);
@@ -39,11 +39,12 @@ namespace CinemaBooking.Pages.Transactions
             }
         }
 
-        public async Task<IActionResult> OnPost(int t_id, int trans_id, int c_id)
+        public async Task<IActionResult> OnPost(int trans_id, int c_id)
         {
-            Tickets = _db.Tickets.Where(t => t.TicketNum == t_id).FirstOrDefault();
-            BuysTicket = _db.BuysTicket.Where(b => b.TicketNum == t_id && b.CustID == c_id && b.TransactionID == trans_id).FirstOrDefault();
-            Transaction = _db.Transaction.Where(u => u.CustID == c_id && u.TransactionID == trans_id).FirstOrDefault();
+            
+            BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id).FirstOrDefault();
+            Tickets = _db.Tickets.Where(t => t.TicketNum == BuysTicket.TicketNum).FirstOrDefault();
+            Transaction = _db.Transaction.Where(u => u.CustID == c_id && u.TransactionID == BuysTicket.TransactionID).FirstOrDefault();
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
                 Seats = _db.Seats.Where(s => s.TheaterID == Tickets.TheaterID && s.TicketNum == Tickets.TicketNum).FirstOrDefault();
@@ -56,14 +57,7 @@ namespace CinemaBooking.Pages.Transactions
                 _db.Tickets.Remove(Tickets);
                 _db.BuysTicket.Remove(BuysTicket);
                 //Determine it the transaction still has other tickets by checking the total saved
-                if (Transaction.total <= 0)
-                {
-                    _db.Transaction.Remove(Transaction);
-                }
-                else
-                {
-                    _db.Update(Transaction);
-                }
+                _db.Transaction.Remove(Transaction);
                 await _db.SaveChangesAsync();
             }
             return RedirectToPage("/Transactions/List");
