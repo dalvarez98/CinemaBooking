@@ -104,7 +104,7 @@ namespace CinemaBooking.Pages
             await _db.BuysTicket.AddAsync(Buys);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage("../Index");
+            return RedirectToPage("/Transactions/List");
         }
     }
 }

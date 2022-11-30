@@ -60,8 +60,12 @@ namespace CinemaBooking.Pages.SeatSelection
             Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
             Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom);
         }
-        public async Task<IActionResult> OnPostAsync(string movie, string date, string cinema, string theater, int id)
+        public async Task<IActionResult> OnPostAsync(string movie, string date, string cinema, int id)
         {
+            CinemaTime cinemaTime = new CinemaTime();
+            cinemaTime.Movie = movie;
+            cinemaTime.Date = date;
+            cinemaTime.Cinema = cinema;
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
             Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
@@ -71,11 +75,11 @@ namespace CinemaBooking.Pages.SeatSelection
                 if (s == null) return Page();
                 s.Availabe = 0;
                 //Save SeatID for ticket
-                //cinemaTime.Seat = s.SeatNum;
-                //cinemaTime.Theater = s.TheaterID;
+                cinemaTime.Seat = s.SeatNum;
+                cinemaTime.Theater = s.TheaterID;
                 _db.Seats.Update(s);
                 await _db.SaveChangesAsync();
-                return RedirectToPage("/Buys/ticket");
+                return RedirectToPage("/Buys/ticket", cinemaTime);
             }
             return Page();
         }
