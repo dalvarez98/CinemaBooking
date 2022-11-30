@@ -2,7 +2,7 @@
 
 namespace CinemaBooking.Model
 {
-    public class Transactions
+    public class Transaction
     {
         [Key]
         public int TransactionID{ get; set; }
@@ -13,7 +13,7 @@ namespace CinemaBooking.Model
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public float total { get; set; }
+        public decimal total { get; set; }
         [Required]
         public int CustID { get; set; }//Foreign Key
     }
