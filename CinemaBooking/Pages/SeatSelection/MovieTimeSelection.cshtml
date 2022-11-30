@@ -2,275 +2,308 @@
 @model CinemaBooking.Pages.SeatSelection.MovieTimeSelectionModel
 @{
 	<style>
-						.Showtimes {
-							position: fixed;
-							top: 5.5%;
-							bottom: 0;
-							left: 0;
-							right: 0;
-							display: flex;
-							flex-direction: column;
-							height: 100vh;
-						}
-						.showtimes-filters {
-							border-top: 2px solid rgba(225,225,225,.35);
-							border-bottom: 2px solid rgba(225,225,225,.35);
-						}
-						.u-container {
-							margin: 0 auto;
-							max-width: 1260px;
-							padding: 0 20px;
-						}
-						.Dropdown-Taskbar {
-							height: 51px;
-							display: flex;
-							margin-bottom: 0px;
-							padding: 0 1.5em;
-							position: relative;
-							overflow: hidden;
-							top: -1px;
-							width: 100%;
-							z-index: 1;
-							transition: height .3s ease-in-out;
-						}
-						.Dropdown-Action {
-							flex-wrap: nowrap;
-							flex-direction: row;
-							padding: 0 20px;
-							align-items: center;
-							height: 100%;
-							justify-content: space-between;
-							padding: 8px 4px;
-							position: relative;
-							cursor: pointer;
-						}
-						.Dropdown-Select {
-							position: absolute;
-							top: 0;
-							left: 0;
-							width: 100%;
-							height: 100%;
-							appearance: none;
-							color: transparent;
-							border: 0;
-							background-color: transparent;
-							font-size: 13px;
-							cursor: pointer;
-						}
-						select.Dropdown-Select option {
-							color: black;
-							background-color: white;
-							font-size: 15px;
-						}
-						.Dropdown-Wrapper {
-							width: auto;
-							height: 51px;
-							max-width: 24%;
-							border-right: 2px solid;
-						}
-						.Title {
-							font-size: 16px;
-							width: auto;
-							white-space: nowrap;
-							color: white;
-							padding-right: 18px;
-							padding-left: 18px;
-							display: initial;
-							max-height: 30px;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							padding-top: 4px;
-							padding-bottom: 4px;
-							text-align: center;
-						}
-						.Filter {
-							position: relative;
-							height: 100%;
-							width: 6%;
-						}
-						.filterText {
-							position: absolute;
-							top: 50%;
-							transform: translateY(-50%);
-							color: white;
-							font-size: 12px;
-							font-weight: bold;
-							text-transform: uppercase;
-						}
-						.Background-Container {
-							background-color: black;
-						}
-						.Background-Image {
-							transition-property: opacity;
-							transition-delay: .15s;
-							transition-duration: .5s;
-							filter: blur(1px);
-							-webkit-filter: blur(1px);
-							position: absolute;
-							left: 0;
-							top: 0;
-							width: 100%;
-							height: 100%;
-							clip: rect(auto,auto,auto,auto);
-							clip-path: inherit;
-							overflow: hidden;
-							z-index: -1;
-							transform: translateZ(0);
-						}
-						.image {
-							position: absolute;
-							top: 0;
-							left: 0;
-							height: 100%;
-							width: 100%;
-							background-repeat: no-repeat;
-							background-position: center;
-							background-size: cover;
-						}
-						.icon {
-							font-size: 1.5rem;
-							color: white;
-						}
-						.showtimeSelection {
-							overflow: auto;
-							float: left;
-							position: relative;
-							min-height: 1px;
-							padding-right: 15px;
-							padding-left: 15px;
-						}
-						.movieHeading {
-							min-height: 60px;
-							flex-grow: 0;
-							overflow: hidden;
-							position: relative;
-							padding-bottom: 15px;
-						}
-						.movieTitle {
-							color: white;
-							text-decoration: none;
-							outline: none;
-							font-size: 14px;
-						}
-						.scrollBoxForm {
-							width: 100%;
-							padding-top: 3.5em;
-						}
-						.times {
-							padding-right: 15px;
-							border-top: none;
-							margin-top: 0;
-							margin-bottom: 60px;
-						}
-						.locationTitle {
-							padding: 60px 0 22px;
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
-							flex-wrap: wrap;
-						}
-						.theaterTimes {
-							margin-bottom: -13px;
-							padding-bottom: 0;
-							position: relative;
-							background-image: radial-gradient(ellipse 65% 40% at 50% -5%, rgba(0,0,0,.5) 0, transparent 80%);
-						}
-						.theaterTimesHeading {
-							display: flex;
-							align-content: baseline;
-							justify-content: space-between;
-						}
+	.but1 {
+		background-color: maroon;
+		color: white;
+		transition-duration: 0.4s;
+		border-radius: 4px;
+	}
+	.but1:hover {
+		background-color: red;
+		color: white;
+	}
+									.Showtimes {
+										position: fixed;
+										top: 5.5%;
+										bottom: 0;
+										left: 0;
+										right: 0;
+										display: flex;
+										flex-direction: column;
+										height: 100vh;
+									}
+									.showtimes-filters {
+										border-top: 2px solid rgba(225,225,225,.35);
+										border-bottom: 2px solid rgba(225,225,225,.35);
+									}
+									.u-container {
+										margin: 0 auto;
+										max-width: 1260px;
+										padding: 0 20px;
+									}
+									.Dropdown-Taskbar {
+										height: 51px;
+										display: flex;
+										margin-bottom: 0px;
+										padding: 0 1.5em;
+										position: relative;
+										overflow: hidden;
+										top: -1px;
+										width: 100%;
+										z-index: 1;
+										transition: height .3s ease-in-out;
+									}
+									.Dropdown-Action {
+										flex-wrap: nowrap;
+										flex-direction: row;
+										padding: 0 20px;
+										align-items: center;
+										height: 100%;
+										justify-content: space-between;
+										padding: 8px 4px;
+										position: relative;
+										cursor: pointer;
+									}
+									.Dropdown-Select {
+										position: absolute;
+										top: 0;
+										left: 0;
+										width: 100%;
+										height: 100%;
+										appearance: none;
+										color: transparent;
+										border: 0;
+										background-color: transparent;
+										font-size: 13px;
+										cursor: pointer;
+									}
+									select.Dropdown-Select option {
+										color: black;
+										background-color: white;
+										font-size: 15px;
+									}
+									.Dropdown-Wrapper {
+										width: auto;
+										height: 51px;
+										max-width: 24%;
+										border-right: 2px solid;
+									}
+									.Title {
+										font-size: 16px;
+										width: auto;
+										white-space: nowrap;
+										color: white;
+										padding-right: 18px;
+										padding-left: 18px;
+										display: initial;
+										max-height: 30px;
+										overflow: hidden;
+										text-overflow: ellipsis;
+										padding-top: 4px;
+										padding-bottom: 4px;
+										text-align: center;
+									}
+									.Filter {
+										position: relative;
+										height: 100%;
+										width: 6%;
+									}
+									.filterText {
+										position: absolute;
+										top: 50%;
+										transform: translateY(-50%);
+										color: white;
+										font-size: 12px;
+										font-weight: bold;
+										text-transform: uppercase;
+									}
+									.Background-Container {
+										background-color: black;
+									}
+									.Background-Image {
+										transition-property: opacity;
+										transition-delay: .15s;
+										transition-duration: .5s;
+										filter: blur(1px);
+										-webkit-filter: blur(1px);
+										position: absolute;
+										left: 0;
+										top: 0;
+										width: 100%;
+										height: 100%;
+										clip: rect(auto,auto,auto,auto);
+										clip-path: inherit;
+										overflow: hidden;
+										z-index: -1;
+										transform: translateZ(0);
+									}
+									.image {
+										position: absolute;
+										top: 0;
+										left: 0;
+										height: 100%;
+										width: 100%;
+										background-repeat: no-repeat;
+										background-position: center;
+										background-size: cover;
+									}
+									.icon {
+										font-size: 1.5rem;
+										color: white;
+									}
+									.showtimeSelection {
+										overflow: auto;
+										float: left;
+										position: relative;
+										min-height: 1px;
+										padding-right: 15px;
+										padding-left: 15px;
+									}
+									.movieHeading {
+										min-height: 60px;
+										flex-grow: 0;
+										overflow: hidden;
+										position: relative;
+										padding-bottom: 15px;
+									}
+									.movieTitle {
+										color: white;
+										text-decoration: none;
+										outline: none;
+										font-size: 14px;
+									}
+									.scrollBoxForm {
+										width: 100%;
+										padding-top: 3.5em;
+									}
+									.times {
+										padding-right: 15px;
+										border-top: none;
+										margin-top: 0;
+										margin-bottom: 60px;
+									}
+									.locationTitle {
+										padding: 60px 0 22px;
+										display: flex;
+										justify-content: space-between;
+										align-items: center;
+										flex-wrap: wrap;
+									}
+									.theaterTimes {
+										margin-bottom: -13px;
+										padding-bottom: 0;
+										position: relative;
+										background-image: radial-gradient(ellipse 65% 40% at 50% -5%, rgba(0,0,0,.5) 0, transparent 80%);
+									}
+									.theaterTimesHeading {
+										display: flex;
+										align-content: baseline;
+										justify-content: space-between;
+									}
+									.ShowtimeButtons {
+										display: flex;
+										flex-wrap: wrap;
+										margin-bottom: 35px;
+									}
 	</style>
 	<div class="Showtimes">
-			<form method="post">
-			<div class="showtimes-filters">
+						<form method="post">
+						<div class="showtimes-filters">
+									<div class="u-container">
+										<div class="Dropdown-Taskbar">
+											<div class="Filter">
+												<span class="filterText">Filter by</span>
+											</div>
+											<div class="Dropdown-Wrapper">
+												<div class="Dropdown-Action">
+													<i class="bi bi-geo-alt icon"></i>
+													<div class="Title" id="locations" aria-hidden="true">
+														@Model.selectedLocation
+													</div>
+													<i class="bi bi-arrow-down-circle icon"></i>
+													<select class="Dropdown-Select" asp-for="selectedLocation" asp-items="@Model.Cinema" 
+									onchange="this.form.submit();"></select>
+												</div>
+											</div>
+											<div class="Dropdown-Wrapper">
+												<div class="Dropdown-Action">
+													<i class="bi bi-calendar-date icon"></i>
+													<div class="Title" id="date" aria-hidden="true">
+														@Model.selectedDate
+													</div>
+													<i class="bi bi-arrow-down-circle icon"></i>
+													<select class="Dropdown-Select" asp-for="selectedDate" asp-items="@Model.Dates" 
+									onchange="this.form.submit();"></select>
+												</div>
+											</div>
+											<div class="Dropdown-Wrapper">
+												<div class="Dropdown-Action">
+													<i class="bi bi-film icon"></i>
+													<div class="Title" id="movie" aria-hidden="true">
+														@Model.selectedMovie
+													</div>
+													<i class="bi bi-arrow-down-circle icon"></i>
+													<select class="Dropdown-Select" asp-for="selectedMovie" asp-items="@Model.Movie" 
+									onchange="this.form.submit();"></select>
+												</div>
+											</div>
+											<div class="Dropdown-Wrapper">
+												<div class="Dropdown-Action">
+													<i class="bi bi-pin-angle icon"></i>
+													<div class="Title" id="Theater Options" aria-hidden="true">
+														@Model.selectedTheaterOptions
+													</div>
+													<i class="bi bi-arrow-down-circle icon"></i>
+													<select class="Dropdown-Select" asp-for="selectedTheaterOptions" onchange="this.form.submit();">
+														<option>Reserved Seating</option>
+														<option>Closed Caption</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+						</div>
+						</form>
+						<div class="Background-Container">
+							<div class="Background-Image">
+								<img img class="image" src="~/seatRoom.jpg" />
+							</div>
+						</div>
+						<div class="scrollBoxForm">
 						<div class="u-container">
-							<div class="Dropdown-Taskbar">
-								<div class="Filter">
-									<span class="filterText">Filter by</span>
+							<div class="showtimeSelection">
+								<div class="movieHeading">
+									<a class="movieTitle">
+										<h2 style="color: white; font-weight: bold">@Model.selectedMovie</h2>
+									</a>
 								</div>
-								<div class="Dropdown-Wrapper">
-									<div class="Dropdown-Action">
-										<i class="bi bi-geo-alt icon"></i>
-										<div class="Title" id="locations" aria-hidden="true">
+								<div class="times">
+									<div class="locationTitle">
+										<h2 style="color: white; font-size: 24px; font-weight: bold">
+											<i class="bi bi-geo-alt icon"></i>
 											@Model.selectedLocation
-										</div>
-										<i class="bi bi-arrow-down-circle icon"></i>
-										<select class="Dropdown-Select" asp-for="selectedLocation" asp-items="@Model.Cinema" 
-									onchange="this.form.submit();"></select>
+										</h2>
 									</div>
-								</div>
-								<div class="Dropdown-Wrapper">
-									<div class="Dropdown-Action">
-										<i class="bi bi-calendar-date icon"></i>
-										<div class="Title" id="date" aria-hidden="true">
-											@Model.selectedDate
-										</div>
-										<i class="bi bi-arrow-down-circle icon"></i>
-										<select class="Dropdown-Select" asp-for="selectedDate" asp-items="@Model.Dates" 
-									onchange="this.form.submit();"></select>
-									</div>
-								</div>
-								<div class="Dropdown-Wrapper">
-									<div class="Dropdown-Action">
-										<i class="bi bi-film icon"></i>
-										<div class="Title" id="movie" aria-hidden="true">
-											@Model.selectedMovie
-										</div>
-										<i class="bi bi-arrow-down-circle icon"></i>
-										<select class="Dropdown-Select" asp-for="selectedMovie" asp-items="@Model.Movie" 
-									onchange="this.form.submit();"></select>
-									</div>
-								</div>
-								<div class="Dropdown-Wrapper">
-									<div class="Dropdown-Action">
-										<i class="bi bi-pin-angle icon"></i>
-										<div class="Title" id="Theater Options" aria-hidden="true">
-											@Model.selectedTheaterOptions
-										</div>
-										<i class="bi bi-arrow-down-circle icon"></i>
-										<select class="Dropdown-Select" asp-for="selectedTheaterOptions" onchange="this.form.submit();">
-											<option>Reserved Seating</option>
-											<option>Closed Caption</option>
-										</select>
+									<div>
+										<div class="theaterTimes">
+											<div class="theaterTimesHeading">
+												<div style="margin-bottom: 7px; display: flex; flex-wrap: wrap; align-items: baseline;">
+													<h4 style="color: white; font-size: 24px; font-weight: bold">Digital</h4>
+												</div>
+											</div>
+											<ul style="list-style-type: none; padding: 0; margin: 0">
+												<li style="margin: 0 20px auto 0; line-height: 25px; display: inline-block; padding: 0; color: white" tabindex="-1">
+													<div>Comfiest Recliners</div>
+												</li>
+												<li style="margin: 0 20px auto 0; line-height: 25px; display: inline-block; padding: 0; color: white" tabindex="-1">
+													<div>Reserved Seating</div>
+												</li>
+												<li style="margin: 0 20px auto 0; line-height: 25px; display: inline-block; padding: 0; color: white" tabindex="-1">
+													<div>Closed Caption</div>
+												</li>
+												<li style="margin: 0 20px auto 0; line-height: 25px; display: inline-block; padding: 0; color: white" tabindex="-1">
+													<div>Audio Description</div>
+												</li>
+											</ul>
+								@foreach (var item in Model.ListOfScreenings)
+								{
+									<button type="submit" class="btn but1" style="width:150px">@item.ScreeningDateStart.ToShortTimeString()</button>
+								}
+							</div>
 									</div>
 								</div>
 							</div>
 						</div>
-			</div>
-			</form>
-			<div class="Background-Container">
-				<div class="Background-Image">
-					<img img class="image" src="~/seatRoom.jpg" />
-				</div>
-			</div>
-			<div class="scrollBoxForm">
-			<div class="u-container">
-				<div class="showtimeSelection">
-					<div class="movieHeading">
-						<a class="movieTitle">
-							<h2 style="color: white; font-weight: bold">@Model.selectedMovie</h2>
-						</a>
-					</div>
-					<div class="times">
-						<div class="locationTitle">
-							<h2 style="color: white; font-size: 24px; font-weight: bold">
-								<i class="bi bi-geo-alt icon"></i>
-								@Model.selectedLocation
-							</h2>
 						</div>
-						<div>
-							<div class="theaterTimes">
-								<div class="theaterTimesHeading">
-									<div style="margin-bottom: 7px; display: flex; flex-wrap: wrap; align-items: baseline;">
-										<h4 style="color: white; font-size: 24px; font-weight: bold">Digital</h4>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
 	</div>
 }
