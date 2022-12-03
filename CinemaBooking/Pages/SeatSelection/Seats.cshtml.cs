@@ -55,25 +55,34 @@ namespace CinemaBooking.Pages.SeatSelection
             public int Seat { get; set; }
         }
         public void OnGet(string movie, string date, string cinema, string theater)
-        {
+        {  
+            // Find the Movie using the title
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
+            // Find the Cinema using the title
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
-            //Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-            //Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom);
+            //Find the room using both foriegn keys
+            TheaterRooms T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            //Get the list of seats in the room
+            Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom);
         }
         public async Task<IActionResult> OnPostAsync(string movie, string date, string cinema, int id)
         {
+            //Create a cinemaTime object that will store important data that will be passed by the RedirectToPage function
             CinemaTime cinemaTime = new CinemaTime();
             cinemaTime.Movie = movie;
             cinemaTime.Date = date;
             cinemaTime.Cinema = cinema;
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
-            //Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-            //Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).ToList();
+
+            TheaterRooms T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).ToList();
+            //Since if the Seat is available 
             foreach(var s in Seat) 
             { 
+                //if not then return to page to select again
                 if (s == null) return Page();
+                //if it is then save seat data to cinemaTime and update the seat in the database
                 if (s.Availabe != 0)
                 {
                     s.Availabe = 0;

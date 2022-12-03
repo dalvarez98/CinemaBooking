@@ -28,9 +28,14 @@ namespace CinemaBooking.Pages.Transactions
         }
 
         public void OnGet()
-        {
+        {   //Find the Customer record using The User ID
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
+            //Get a list of the transactions the Customer has
             Payment = GetTransactions(Customer);
+            foreach (Transaction transaction in Payment)
+            {
+                BuyTickets = _db.BuysTicket.Where(u => u.TransactionID == transaction.TransactionID && u.CustID == Customer.CustID).ToList();
+            }
         }   
     }
 }

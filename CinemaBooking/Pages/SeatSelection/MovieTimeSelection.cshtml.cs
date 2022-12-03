@@ -29,7 +29,39 @@ namespace CinemaBooking.Pages.SeatSelection
         public SelectList Dates { get; set; }
         public SelectList Movie { get; set; }
         public IEnumerable<String> ListOfScreenings { get; set; }
+        public class CinemaTime
+        {
+            public CinemaTime()
+            {
+                Cinema = "null";
+                Date = "null";
+                Movie = "null";
+                Theater = 0;
+                Seat = 0;
+            }
+            public CinemaTime(string cinema, string date, string movie, int theater = 0, int seat = 0)
+            {
+                Cinema = cinema;
+                Date = date;
+                Movie = movie;
+                Theater = theater;
+                Seat = seat;
+            }
+            public void Copy(CinemaTime c)
+            {
+                Cinema = c.Cinema;
+                Date = c.Date;
+                Movie = c.Movie;
+                Theater = c.Theater;
+                Seat = c.Seat;
+            }
 
+            public string Cinema { get; set; }
+            public string Date { get; set; }
+            public string Movie { get; set; }
+            public int Theater { get; set; }
+            public int Seat { get; set; }
+        }
         public MovieTimeSelectionModel(ApplicationDbContext db)
         {
             _db = db;
@@ -142,7 +174,10 @@ namespace CinemaBooking.Pages.SeatSelection
 
             ListOfScreenings = listOfSpecificTimes();
 
-            return Page();
+            this.Movie = new SelectList(this._db.Movie, "MovieID", "MovieTitle");
+            CinemaTime cinemaTime = new CinemaTime(selectedLocation, selectedDate, selectedMovie);
+
+            return RedirectToPage("/SeatSelection/Seats",  cinemaTime);
         }
     }
 }

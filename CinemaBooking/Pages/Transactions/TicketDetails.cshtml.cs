@@ -31,7 +31,10 @@ namespace CinemaBooking.Pages.Transactions
         public Seats Seats { get; set; }
         public void OnGet(int trans_id, int c_id)
         {
+            //Bring up the record in buys ticket with the same customer id and transaction id, was originally going to be
+            //a list but do to timing issues the record should contain just the 1 correct record or null
             BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id).FirstOrDefault();
+            //find the ticket 
             Tickets = _db.Tickets.Where(t => t.TicketNum == BuysTicket.TicketNum).FirstOrDefault();
             if (Tickets != null)
             {
@@ -39,16 +42,16 @@ namespace CinemaBooking.Pages.Transactions
                 Room = _db.TheaterRoom.Find(Tickets.TheaterID);
             }
         }
-
-        public async Task<IActionResult> OnPost(int trans_id, int c_id)
+        public async Task<IActionResult> OnPost(int t_id, int trans_id, int c_id)
         {
-            
+            //Bring up the record in buys ticket with the same customer id and transaction id, was originally going to be
+            //a list but do to timing issues the record should contain just the 1 correct record or null
             BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id).FirstOrDefault();
+            //find the ticket 
             Tickets = _db.Tickets.Where(t => t.TicketNum == BuysTicket.TicketNum).FirstOrDefault();
             Transaction = _db.Transaction.Where(u => u.CustID == c_id && u.TransactionID == BuysTicket.TransactionID).FirstOrDefault();
             if (Transaction != null && BuysTicket != null && Tickets != null)
             {
-                BuysTicket = _db.BuysTicket.Where(b => b.CustID == c_id && b.TransactionID == trans_id && b.TicketNum == Tickets.TicketNum).FirstOrDefault();
                 Seats = _db.Seats.Where(s => s.TheaterID == Tickets.TheaterID && s.TicketNum == Tickets.TicketNum).FirstOrDefault();
                 Transaction.total = Transaction.total - Tickets.Price;
                 //Reset Seats table to the default
@@ -59,7 +62,14 @@ namespace CinemaBooking.Pages.Transactions
                 _db.Tickets.Remove(Tickets);
                 _db.BuysTicket.Remove(BuysTicket);
                 //Determine it the transaction still has other tickets by checking the total saved
-                _db.Transaction.Remove(Transaction);
+                if (Transaction.total <= 0)
+                {
+                    _db.Transaction.Remove(Transaction);
+                }
+                else
+                {
+                    _db.Update(Transaction);
+                }
                 await _db.SaveChangesAsync();
             }
             return RedirectToPage("/Transactions/List");

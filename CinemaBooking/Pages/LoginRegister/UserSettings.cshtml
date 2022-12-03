@@ -134,7 +134,7 @@
 			<span asp-validation-for="customer.Username" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn but1" style="width:150px">Update</button>
-		<a class="btn but1" asp-page="/Transactions/List">Payment History</a>
+		<a asp-page="/Transactions/List" class="btn but1">Payment History</a>
 	</div>
 	
 </form>
@@ -259,7 +259,7 @@ else @if(User.HasClaim("UserCrewmember", "Crewmember")) {
 			<span asp-validation-for="crewmember.Username" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn but1" style="width:150px">Update</button>
-		<a class="btn but1" asp-page="/Transactions/List">Payment History</a>
+		<a asp-page="/Transactions/List" class="btn but1">Payment History</a>
 	</div>
 </form>
 }
@@ -383,7 +383,7 @@ else {
 			<span asp-validation-for="manager.Username" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn but1" style="width:150px">Update</button>
-		<a class="btn but1" asp-page="/Transactions/List" >Payment History</a>
+		<a asp-page="/Transactions/List" class="btn but1">Payment History</a>
 	</div>
 </form>
 	

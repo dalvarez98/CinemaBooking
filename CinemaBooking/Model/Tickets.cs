@@ -18,5 +18,6 @@ namespace CinemaBooking.Model
         public int TheaterID { get; set; } //Foreign Key
 
         public int SeatNum  { get; set; } //Foreign Key
+        public int ScreeningID { get; set; }
     }
 }

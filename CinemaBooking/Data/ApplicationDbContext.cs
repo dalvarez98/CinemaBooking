@@ -21,7 +21,6 @@ namespace CinemaBooking.Data
         public DbSet<TheaterRooms> TheaterRoom { get; set; }
         public DbSet<Screening> Screening { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BuysTicket>().HasKey(m => new {m.CustID, m.TransactionID, m.TicketNum});
