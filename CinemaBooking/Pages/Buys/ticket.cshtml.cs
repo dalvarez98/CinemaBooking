@@ -56,17 +56,14 @@ namespace CinemaBooking.Pages
         {
             _db = db;
         }
-        public void OnGet(CinemaTime c)
+        public void OnGet(string movie, string cinema, string date)
         {
-            cinemaTime = new CinemaTime();
-            cinemaTime.Copy(c);
             Movie = _db.Movie.Where(u=>u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
         }
-        public async Task<IActionResult> OnPost(CinemaTime c, string number, string type)
+        public async Task<IActionResult> OnPost(string movie, string cinema, string date, string number, string type)
         {
-            cinemaTime = new CinemaTime();
-            cinemaTime.Copy(c);
+            var id = 0;
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
@@ -101,7 +98,7 @@ namespace CinemaBooking.Pages
             //Assign to the BuysTicket and Seat table
             Buys.TicketNum = tickets.TicketNum;
             Buys.CustID = Customer.CustID;
-            Seats = _db.Seats.Where(u => u.TheaterID == cinemaTime.Theater && c.Seat == cinemaTime.Seat).FirstOrDefault();
+            Seats = _db.Seats.Where(u => u.TheaterID == cinemaTime.Theater && u.SeatNum == cinemaTime.Seat).FirstOrDefault();
             Seats.TicketNum = tickets.TicketNum;
             _db.Seats.Update(Seats);
             await _db.SaveChangesAsync();
