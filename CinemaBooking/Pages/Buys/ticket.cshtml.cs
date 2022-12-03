@@ -69,22 +69,37 @@ namespace CinemaBooking.Pages
             cinemaTime.Copy(c);
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
-
-
-                Tickets tickets = new Tickets();
-                tickets.Price = Convert.ToDecimal(20);
-                tickets.ShowDate = Convert.ToDateTime(cinemaTime.Date).Date;
-                tickets.ShowTime = Convert.ToDateTime(cinemaTime.Date);
-                Cinema = _db.Cinema.Where(u => u.Name.Equals(cinemaTime.Cinema)).FirstOrDefault();
-                tickets.CinemaID = Cinema.CinemaID;
-                tickets.TheaterID = cinemaTime.Theater;
-                tickets.SeatNum = cinemaTime.Seat;
-                await _db.Tickets.AddAsync(tickets);
-                await _db.SaveChangesAsync();
-
+            Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
+            TheaterRooms T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            IEnumerable<Seats> S = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom).ToList();
+            //Look through the available seats to find the next available SeatNum
+            foreach (var obj in S)
+            {
+                if (obj.Availabe != 0)
+                {
+                    id = obj.SeatNum;
+                }
+            }
+            //If no seat found then redirect to home page
+            if (id == 0) return RedirectToPage("../Index");
+            Seats = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).FirstOrDefault();
+            //Create an Ticket Entity 
+            Tickets tickets = new Tickets();
+            tickets.Price = Convert.ToDecimal(20);
+            tickets.ShowDate = Convert.ToDateTime(date).Date;
+            tickets.ShowTime = Convert.ToDateTime(date);
+            tickets.CinemaID = Cinema.CinemaID;
+            tickets.TheaterID = Seats.TheaterID;
+            tickets.SeatNum = Seats.SeatNum;
+            //Save ticket to get the ms SQL to assign the Ticket number
+            await _db.Tickets.AddAsync(tickets);
+            await _db.SaveChangesAsync();
+            //Create a BuysTicket Entity
             Buys = new BuysTicket();
-            tickets = _db.Tickets.Where(u => u.CinemaID == Cinema.CinemaID && u.TheaterID == cinemaTime.Theater && u.SeatNum == cinemaTime.Seat).FirstOrDefault();
-            Buys.TicketNum = tickets.TicketNum;//Placeholder
+            //Retrieve ticket to get the TicketNum Use order by to get the most resent to be added
+            tickets = _db.Tickets.Where(u => u.CinemaID == Cinema.CinemaID && u.TheaterID == Seats.TheaterID && u.SeatNum == Seats.SeatNum).OrderBy(u => u.TicketNum).FirstOrDefault();
+            //Assign to the BuysTicket and Seat table
+            Buys.TicketNum = tickets.TicketNum;
             Buys.CustID = Customer.CustID;
             Seats = _db.Seats.Where(u => u.TheaterID == cinemaTime.Theater && c.Seat == cinemaTime.Seat).FirstOrDefault();
             Seats.TicketNum = tickets.TicketNum;

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CinemaBooking.Model
 {
-    public class Room
+    public class TheaterRooms
     {
         [Key]
         public int TheaterRoom { get; set; } //Primary Key

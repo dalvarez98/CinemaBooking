@@ -17,10 +17,9 @@ namespace CinemaBooking.Data
         public DbSet<Manager> Manager { get; set; }
         public DbSet<Movie> Movie { get; set; }
         public DbSet<Seats> Seats { get; set; }
-        public DbSet<Tickets> Tickets { get; set; }
-        public DbSet<Room> TheaterRoom { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
-        
+        public DbSet<TheaterRooms> TheaterRoom { get; set; }
+        public DbSet<Screening> Screening { get; set; }        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BuysTicket>().HasKey(m => new {m.CustID, m.TransactionID, m.TicketNum});
