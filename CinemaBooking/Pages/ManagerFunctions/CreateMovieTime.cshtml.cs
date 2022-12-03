@@ -1,4 +1,5 @@
 using CinemaBooking.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using System.Data;
 
 namespace CinemaBooking.Pages.ManagerFunctions
 {
+    [Authorize(Policy = "ManagerCredentialsRequired")]
     public class CreateMovieTimeModel : PageModel
     {
         private readonly ApplicationDbContext _db;
@@ -60,6 +62,8 @@ namespace CinemaBooking.Pages.ManagerFunctions
                 Console.WriteLine("Error");
             }
         }
+
+        //Obtains the list of times currently available for manager to select from
         public IEnumerable<SelectListItem> listOfTimes()
         {
 
@@ -103,6 +107,7 @@ namespace CinemaBooking.Pages.ManagerFunctions
 
             bool flag = false;
 
+            //obtain all current screening times from the database
             for (int i = 0; i < timeRange; i++)
             {
                 int minutesAdded = minuteRange * i;
@@ -124,6 +129,7 @@ namespace CinemaBooking.Pages.ManagerFunctions
                     }
                 }
 
+                //checks the length of the movie against time and deselects the time if movie length overlaps
                 if (flag)
                 {
                     list.Add(new SelectListItem { Text = result.ToShortTimeString(), Value = result.ToShortTimeString(), Disabled = true });

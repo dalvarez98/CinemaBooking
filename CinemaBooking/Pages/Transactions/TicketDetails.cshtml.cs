@@ -1,6 +1,7 @@
 using CinemaBooking.Data;
 using CinemaBooking.Model;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -26,7 +27,7 @@ namespace CinemaBooking.Pages.Transactions
         [AllowNull]
         public Cinema Cinema { get; set; }
         [AllowNull]
-        public Room Room { get; set; }
+        public TheaterRooms Room { get; set; }
         public Seats Seats { get; set; }
         public void OnGet(int trans_id, int c_id)
         {

@@ -1,5 +1,6 @@
 using CinemaBooking.Data;
 using CinemaBooking.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,7 +28,7 @@ namespace CinemaBooking.Pages.SeatSelection
         public SelectList Cinema { get; set; }
         public SelectList Dates { get; set; }
         public SelectList Movie { get; set; }
-        public IEnumerable<Screening> ListOfScreenings { get; set; }
+        public IEnumerable<String> ListOfScreenings { get; set; }
 
         public MovieTimeSelectionModel(ApplicationDbContext db)
         {
@@ -80,22 +81,22 @@ namespace CinemaBooking.Pages.SeatSelection
             }
         }
 
-        public IEnumerable<Screening> listOfSpecificTimes()
+        public IEnumerable<String> listOfSpecificTimes()
         {
-            var screen = new List<Screening>();
+            var screen = new List<String>();
 
             try
             {
                 using (SqlConnection connection = new SqlConnection("Server = .; Database = CinemaBooking; Trusted_Connection = True"))
                 {
-                    String myCommand = "SELECT TheaterRoom, ScreeningDateStart FROM Screening WHERE MovieID = " + selectedMovieID + " AND CinemaID = " + selectedLocationID;
+                    String myCommand = "SELECT ScreeningDateStart FROM Screening WHERE MovieID = " + selectedMovieID + " AND CinemaID = " + selectedLocationID + " AND CAST(ScreeningDateStart AS DATE) = " + "'" + selectedDate + "'";
                     SqlCommand cmd = new SqlCommand(myCommand, connection);
                     connection.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-
+                        screen.Add((Convert.ToDateTime(reader["ScreeningDateStart"])).ToShortTimeString());
                     }
                 }
             }
@@ -115,12 +116,12 @@ namespace CinemaBooking.Pages.SeatSelection
             selectedTheaterOptions = "Reserved Seating";
             Cinema = new SelectList(locationList, "Text", "Value");
             selectedLocation = Cinema.FirstOrDefault().Text;
-            //selectedLocationID = Cinema.FirstOrDefault().Value;
+            selectedLocationID = Cinema.FirstOrDefault().Value;
             Dates = new SelectList(dateList);
             Movie = new SelectList(_db.Movie, "MovieID", "MovieTitle");
             selectedMovie = Movie.FirstOrDefault().Text;
-            //selectedMovieID = Movie.FirstOrDefault().Value;
-            ListOfScreenings = _db.Screening;
+            selectedMovieID = Movie.FirstOrDefault().Value;
+            ListOfScreenings = listOfSpecificTimes();
         }
 
         public IActionResult OnPost()
@@ -129,16 +130,17 @@ namespace CinemaBooking.Pages.SeatSelection
             Cinema = new SelectList(locationList, "Text", "Value");
             var dataLocation = Cinema.Where(m => m.Value.ToString() == selectedLocation).FirstOrDefault();
             selectedLocation = dataLocation.Text;
-            //selectedLocationID = dataLocation.Value;
+            selectedLocationID = dataLocation.Value;
 
             dates();
             Dates = new SelectList(dateList);
             var dataMovie = _db.Movie.Where(m => m.MovieID.ToString() == selectedMovie).FirstOrDefault();
             selectedMovie = dataMovie.MovieTitle;
-            var dataID = _db.Movie.Where(m => m.MovieID.ToString() == selectedMovie).FirstOrDefault();
-            //selectedMovieID = Convert.ToString(dataID.MovieID);
+            selectedMovieID = Convert.ToString(dataMovie.MovieID);
 
             Movie = new SelectList(_db.Movie, "MovieID", "MovieTitle");
+
+            ListOfScreenings = listOfSpecificTimes();
 
             return Page();
         }

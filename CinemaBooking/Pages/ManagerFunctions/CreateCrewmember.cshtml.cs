@@ -1,5 +1,6 @@
 using CinemaBooking.Data;
 using CinemaBooking.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CinemaBooking.Pages.ManagerFunctions
 {
+    [Authorize(Policy = "ManagerCredentialsRequired")]
     [BindProperties]
     public class CreateCrewmemberModel : PageModel
     {

@@ -5,12 +5,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
+/*
+ * If user provided correct confirmation code they will be able to change their password
+ */
+
 namespace CinemaBooking.Pages.LoginRegister
 {
     [BindProperties]
     public class ResetPasswordModel : PageModel
     {
         public Customer cust { get; set; }
+
+        //Retrieves the data of the user that wishes to reset their password
         public void OnGet()
         {
             this.cust = new Customer();
@@ -24,6 +30,7 @@ namespace CinemaBooking.Pages.LoginRegister
                     connection.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
+                    //using GetOrdinal to directly map the ordinal variable to each specified column
                     int ordFName = reader.GetOrdinal("FirstN");
                     int ordLName = reader.GetOrdinal("LastN");
                     int ordEmail = reader.GetOrdinal("Email");
@@ -42,6 +49,8 @@ namespace CinemaBooking.Pages.LoginRegister
                 Console.WriteLine("Error");
             }
         }
+
+        //Once user has inputted new password and clicks update new data will be updated into the specified table
         public async Task<IActionResult> OnPost()
         {
             try

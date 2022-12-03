@@ -1,9 +1,14 @@
 using CinemaBooking.Data;
 using CinemaBooking.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.Data;
+
+/*
+ * User Settings Page allowing for a user to update their information
+ */
 
 namespace CinemaBooking.Pages.LoginRegister
 {
@@ -19,7 +24,9 @@ namespace CinemaBooking.Pages.LoginRegister
         {
             _db = db;
         }
-        public void OnGet()
+        
+        //Grabs the appropriate data
+        public IActionResult OnGet()
         {
             if(User.HasClaim("UserCustomer", "Customer"))
             {
@@ -29,10 +36,16 @@ namespace CinemaBooking.Pages.LoginRegister
             {
                 crewmember = _db.Crewmember.Find(Convert.ToInt32(User.FindFirst("UserId").Value));
             }
-            else
+            else if(User.HasClaim("manager", "Manager"))
             {
                 manager = _db.Manager.Find(Convert.ToInt32(User.FindFirst("UserId").Value));
             }
+            else
+            {
+                return new RedirectToPageResult("/LoginRegister/Login");
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()

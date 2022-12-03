@@ -7,6 +7,11 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Security.Claims;
 
+/*
+ * This Page allows users to login to the website and creates an authorization profile 
+ * for that user based on who they are logging in as
+ */
+
 namespace CinemaBooking.Pages.LoginRegister
 {
     public class LoginModel : PageModel
@@ -33,7 +38,7 @@ namespace CinemaBooking.Pages.LoginRegister
                     int idNumber = Convert.ToInt32(cmd.ExecuteScalar());
 
                     if (idNumber > 0)
-                    {
+                    { 
                         //Builds the Users Id card
                         var claims = new List<Claim> {
                             new Claim(ClaimTypes.Name, LoginInfo.Email),
@@ -82,20 +87,20 @@ namespace CinemaBooking.Pages.LoginRegister
                     cmd.Parameters.Add("@Password", SqlDbType.Char, 8).Value = LoginInfo.Password;
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    int ordEmpID = reader.GetOrdinal("EmpID");
+                    int ordEmpID = Convert.ToInt32(reader.GetOrdinal("EmpID"));
                     int ordCinemaID = reader.GetOrdinal("CinemaID");
 
                     reader.Read();
-
-                    if (reader.GetInt32(ordEmpID) > 0)
+                    int temp = reader.GetInt32(ordEmpID);
+                    if (temp > 0)
                     {
                         //Builds the Users Id card
                         var claims = new List<Claim> {
-                            new Claim(ClaimTypes.Name, LoginInfo.Email),
-                            new Claim(ClaimTypes.Email, LoginInfo.Email),
-                            new Claim("manager", "Manager"),
-                            new Claim("UserId", reader.GetInt32(ordEmpID).ToString()),
-                            new Claim("CinemaId", reader.GetInt32(ordCinemaID).ToString())
+                        new Claim(ClaimTypes.Name, LoginInfo.Email),
+                        new Claim(ClaimTypes.Email, LoginInfo.Email),
+                        new Claim("manager", "Manager"),
+                        new Claim("UserId", reader.GetInt32(ordEmpID).ToString()),
+                        new Claim("CinemaId", reader.GetInt32(ordCinemaID).ToString())
                         };
                         //Creates Cookie for user session
                         var identity = new ClaimsIdentity(claims, "MyCookieAuth");
@@ -126,6 +131,7 @@ namespace CinemaBooking.Pages.LoginRegister
         public string Email { get; set; }
 
         [Required]
+        [RegularExpression(@"^.{8,}$", ErrorMessage = "Minimum 8 characters required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

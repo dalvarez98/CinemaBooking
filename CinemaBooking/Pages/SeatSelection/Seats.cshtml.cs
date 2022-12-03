@@ -1,5 +1,6 @@
 using CinemaBooking.Data;
 using CinemaBooking.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +19,7 @@ namespace CinemaBooking.Pages.SeatSelection
         public Cinema Cinema { get; set; }
         [AllowNull]
         public IEnumerable<Seats> Seat { get; set; }
-        public Room Room { get; set; }
+        public TheaterRooms Room { get; set; }
         public class CinemaTime
         {
             public CinemaTime()
@@ -57,8 +58,8 @@ namespace CinemaBooking.Pages.SeatSelection
         {
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
-            Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-            Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom);
+            //Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            //Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom);
         }
         public async Task<IActionResult> OnPostAsync(string movie, string date, string cinema, int id)
         {
@@ -68,8 +69,8 @@ namespace CinemaBooking.Pages.SeatSelection
             cinemaTime.Cinema = cinema;
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(movie)).FirstOrDefault();
             Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
-            Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
-            Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).ToList();
+            //Room T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
+            //Seat = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).ToList();
             foreach(var s in Seat) 
             { 
                 if (s == null) return Page();

@@ -1,0 +1,13 @@
+﻿@using System.Security.Claims
+@if (User.HasClaim("manager", "Manager")) 
+{
+	<li class="nav-item">
+		<a class="nav-link text-light" asp-area="" asp-page="/ManagerFunctions/CustomerList">Customers</a>
+    </li>
+	<li class="nav-item">
+		<a class="nav-link text-light" asp-area="" asp-page="/ManagerFunctions/CrewmemberList">Crewmembers</a>
+    </li>
+	<li class="nav-item">
+		<a class="nav-link text-light" asp-area="" asp-page="/ManagerFunctions/CreateMovieTime">Showtime Creation</a>
+    </li>
+}

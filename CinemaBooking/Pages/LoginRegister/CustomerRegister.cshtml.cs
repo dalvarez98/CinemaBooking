@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
+/*
+ * Registration Page for a potential customer
+ */
+
 namespace CinemaBooking.Pages.LoginRegister
 {
     [BindProperties]

@@ -4,6 +4,7 @@
 		color: white;
 		transition-duration: 0.4s;
 		border-radius: 4px;
+		font-size: 13.5px;
 	}
 	.but1:hover {
 		background-color: red;
@@ -20,7 +21,7 @@
 		@if (User.HasClaim("manager", "Manager"))
 		{
 			<a class="btn but1" asp-page="/LoginRegister/UserSettings">
-				<i class="bi bi-person-square"></i> &nbsp;Profile</a>
+			<i class="bi bi-person-square"></i> &nbsp;Profile</a>
 		}
 		else @if (User.HasClaim("UserCrewmember", "Crewmember")) {
 			<a class="btn but1" asp-page="/LoginRegister/UserSettings">
