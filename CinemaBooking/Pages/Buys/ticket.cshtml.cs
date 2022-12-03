@@ -14,7 +14,7 @@ namespace CinemaBooking.Pages
         private readonly ApplicationDbContext _db;
         public BuysTicket Buys { get; set; }
 
-        public Movie Movie { get; set; }    
+        public Movie Movie { get; set; }
         public Customer Customer { get; set; }
         public Cinema Cinema { get; set; }
         public Seats Seats { get; set; }
@@ -60,7 +60,7 @@ namespace CinemaBooking.Pages
         {
             cinemaTime = new CinemaTime();
             cinemaTime.Copy(c);
-            Movie = _db.Movie.Where(u=>u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
+            Movie = _db.Movie.Where(u => u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
         }
         public async Task<IActionResult> OnPost(CinemaTime c, string number, string type)
@@ -69,7 +69,7 @@ namespace CinemaBooking.Pages
             cinemaTime.Copy(c);
             Movie = _db.Movie.Where(u => u.MovieTitle.Equals(cinemaTime.Movie)).FirstOrDefault();
             Customer = _db.Customer.Find(Convert.ToInt32(User.FindFirst("Userid").Value));
-            Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
+            //Cinema = _db.Cinema.Where(u => u.Name.Equals(cinema)).FirstOrDefault();
             TheaterRooms T_room = _db.TheaterRoom.Where(u => u.MovieID == Movie.MovieID && u.CinemaID == Cinema.CinemaID).FirstOrDefault();
             IEnumerable<Seats> S = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom).ToList();
             //Look through the available seats to find the next available SeatNum
@@ -77,17 +77,17 @@ namespace CinemaBooking.Pages
             {
                 if (obj.Availabe != 0)
                 {
-                    id = obj.SeatNum;
+                    //id = obj.SeatNum;
                 }
             }
             //If no seat found then redirect to home page
-            if (id == 0) return RedirectToPage("../Index");
-            Seats = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).FirstOrDefault();
+            //if (id == 0) return RedirectToPage("../Index");
+            //Seats = _db.Seats.Where(u => u.TheaterID == T_room.TheaterRoom && (u.SeatNum == id)).FirstOrDefault();
             //Create an Ticket Entity 
             Tickets tickets = new Tickets();
             tickets.Price = Convert.ToDecimal(20);
-            tickets.ShowDate = Convert.ToDateTime(date).Date;
-            tickets.ShowTime = Convert.ToDateTime(date);
+            //tickets.ShowDate = Convert.ToDateTime(date).Date;
+            //tickets.ShowTime = Convert.ToDateTime(date);
             tickets.CinemaID = Cinema.CinemaID;
             tickets.TheaterID = Seats.TheaterID;
             tickets.SeatNum = Seats.SeatNum;
@@ -114,7 +114,7 @@ namespace CinemaBooking.Pages
             await _db.Transaction.AddAsync(Transaction);
             await _db.SaveChangesAsync();
 
-            Transaction = _db.Transaction.Where(u => u.CustID == Customer.CustID && u.Date.Equals(Convert.ToDateTime(cinemaTime.Date)) && u.CreditCNum.Equals(number) && u.CardType.Equals(type)).FirstOrDefault(); 
+            Transaction = _db.Transaction.Where(u => u.CustID == Customer.CustID && u.Date.Equals(Convert.ToDateTime(cinemaTime.Date)) && u.CreditCNum.Equals(number) && u.CardType.Equals(type)).FirstOrDefault();
             Buys.TransactionID = Transaction.TransactionID;
             await _db.BuysTicket.AddAsync(Buys);
             await _db.SaveChangesAsync();

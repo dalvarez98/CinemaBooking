@@ -156,7 +156,7 @@ namespace CinemaBooking.Pages.SeatSelection
             ListOfScreenings = listOfSpecificTimes();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string timeSelected)
         {
             locations();
             Cinema = new SelectList(locationList, "Text", "Value");
@@ -177,7 +177,12 @@ namespace CinemaBooking.Pages.SeatSelection
             this.Movie = new SelectList(this._db.Movie, "MovieID", "MovieTitle");
             CinemaTime cinemaTime = new CinemaTime(selectedLocation, selectedDate, selectedMovie);
 
-            return RedirectToPage("/SeatSelection/Seats",  cinemaTime);
+            if (timeSelected != null)
+            {
+                RedirectToPage("/SeatSelection/Seats", cinemaTime);
+            }
+
+            return Page();
         }
     }
 }
